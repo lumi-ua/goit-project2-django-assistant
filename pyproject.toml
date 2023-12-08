@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "goit-project2-django-assistant"
+version = "0.1.0"
+description = ""
+authors = ["lumi-ua <130182058+lumi-ua@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.1.0"
+requests = "^2.31.0"
+bs4 = "^0.0.1"
+lxml = "^4.9.3"
+django-environ = "^0.11.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
