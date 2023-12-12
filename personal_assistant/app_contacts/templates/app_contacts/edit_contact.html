@@ -1,0 +1,13 @@
+
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+  <h2>Edit Contact</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+  <br>
+  <a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}">Cancel</a>
+{% endblock %} 

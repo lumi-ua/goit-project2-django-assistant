@@ -1,0 +1,23 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+
+  <h1>Search Contacts</h1>
+
+  <form action="{% url 'app_contacts:search_contacts' %}" method="get">
+    <label for="query">Search:</label>
+    <input type="text" name="query" id="query" required>
+    <button type="submit">Search</button>
+  </form>
+
+  {% if error_message %}
+    <p>{{ error_message }}</p>
+  {% endif %}
+
+  <ul>
+    {% for contact in contacts %}
+      <li>{{ contact.fullname }} - {{ contact.phone_number }} - {{ contact.email }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

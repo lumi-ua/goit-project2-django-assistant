@@ -1,0 +1,28 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+
+<title>Upcoming Birthdays</title>
+</head>
+<body>
+  <h1>Upcoming Birthdays</h1>
+
+  <form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
+    <label for="days">Days in Future:</label>
+    <input type="number" name="days" id="days" value="7" min="1" required>
+    
+    <button type="submit">Filter</button>
+  </form>
+
+  {% if contacts %}
+    <ul>
+      {% for contact in contacts %}
+        <li> <strong>{{ contact.fullname }} - {{ contact.birthday }}</strong><br></li>
+      {% endfor %}
+    </ul>
+  
+  {% endif %}
+  
+</body>
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Contact Form</h1>
+
+    <form method="post" action="{% url 'app_contacts:contact' %}">
+        {% csrf_token %}
+        
+        {% if form.errors.name %}
+        <div class="text-warning">{{ form.errors.name }}</div>
+        
+        {% endif %}  
+        {{ form.as_p }}
+        
+        <button type="submit">Save Contact</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}

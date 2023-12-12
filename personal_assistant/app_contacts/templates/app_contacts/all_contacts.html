@@ -1,0 +1,25 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+
+<h1>Contact List</h1>
+
+{% if contacts %}
+    <ul>
+        {% for contact in contacts %}
+            <li>
+                <strong>{{ contact.fullname }}</strong><br>
+                Address: {{ contact.address }}<br>
+                Phone Number: {{ contact.phone_number }}<br>
+                Email: {{ contact.email }}<br>
+                Birthday: {{ contact.birthday }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No contacts available.</p>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

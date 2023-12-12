@@ -1,0 +1,10 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+  <h2>Ви впевнені, що хочете видалити контакт "{{ contact.fullname }}"?</h2>
+  <form method="post" action="{% url 'app_contacts:delete_contact' pk=contact.pk %}">
+    {% csrf_token %}
+    <button type="submit">Так, видалити</button>
+    <a href="{% url 'app_assistant:main' %}">Ні, скасувати</a>
+  </form>
+{% endblock %}

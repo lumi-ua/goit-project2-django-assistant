@@ -195,6 +195,24 @@ docs = ["furo (>=2021.8.17b43,<2021.9.dev0)", "sphinx (>=3.5.0)", "sphinx-notfou
 testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
 
 [[package]]
+name = "django-phonenumber-field"
+version = "7.2.0"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django-phonenumber-field-7.2.0.tar.gz", hash = "sha256:20c7c5c449e33eed5fd45ef8d3dc668faabaeff3277eddd1892b262d686ba381"},
+    {file = "django_phonenumber_field-7.2.0-py3-none-any.whl", hash = "sha256:16778f2717ea2aecc6178beb0d6bc431c78c6a8b0474e1fa8face040efeb6e9e"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
+
+[[package]]
 name = "idna"
 version = "3.6"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -311,6 +329,17 @@ cssselect = ["cssselect (>=0.7)"]
 html5 = ["html5lib"]
 htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=0.29.35)"]
+
+[[package]]
+name = "phonenumbers"
+version = "8.13.26"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+optional = false
+python-versions = "*"
+files = [
+    {file = "phonenumbers-8.13.26-py2.py3-none-any.whl", hash = "sha256:b2308c9c5750b8f10dd30d94547afd66bce60ac5e93aff227f95740557f32752"},
+    {file = "phonenumbers-8.13.26.tar.gz", hash = "sha256:937d70aeceb317f5831dfec28de855a60260ef4a9d551964bec8e7a7d0cf81cd"},
+]
 
 [[package]]
 name = "pillow"
@@ -549,4 +578,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "ad4fd8f1cf30b10ecb4208e8138ccfc7856e178e26f886607236a6d6eff22ecd"
+content-hash = "0ae231cc163a7eba51eb928658f48a7aa68e659ae0aa4cfce967fb85acd1a9dd"
