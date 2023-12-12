@@ -14,6 +14,7 @@ requests = "^2.31.0"
 bs4 = "^0.0.1"
 lxml = "^4.9.3"
 django-environ = "^0.11.2"
+environ = "^1.0"
 
 
 [build-system]
