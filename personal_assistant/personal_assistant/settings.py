@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     "noteapp",
     'app_assistant',
     'users'
-    
-    
-    
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -140,6 +140,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/users/login"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -155,4 +157,3 @@ EMAIL_USE_TLS = False
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
