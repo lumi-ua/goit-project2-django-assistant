@@ -1,0 +1,10 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+<form action="{% url 'users:logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+<h1>Ви вже пішли? Ну і фіг з вами ми не будемо сумувати?</h1>
+{% endblock %}
+
