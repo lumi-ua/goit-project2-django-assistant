@@ -19,17 +19,19 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     {% if user.is_authenticated %}
-                   <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Contacts</a>
                     </li>
-                   <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Notes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Files</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'users:my_logout' %}">Logout</a>
+
                     </li>
                     {% else %}
                     <li class="nav-item">

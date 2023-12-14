@@ -6,6 +6,15 @@ from django.views import View
 from django.contrib import messages
 from .forms import RegisterForm
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def my_logout_view(request):
+    if request.method == 'GET':
+        logout(request)
+        # Редирект або відповідна обробка після виходу
+        return redirect('/')
+
 
 class RegisterView(View):
     form_class = RegisterForm

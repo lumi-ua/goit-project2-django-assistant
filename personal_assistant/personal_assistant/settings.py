@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app_contacts',
     "noteapp",
     'app_assistant',
+    'users'
     
     
     
