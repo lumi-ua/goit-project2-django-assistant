@@ -2,11 +2,12 @@ from datetime import date, datetime, timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.urls import reverse_lazy
 
 from django.http import HttpResponseBadRequest
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
-from .models import Contact
+from .models import Contact, PhoneNumber, EmailAddress
 
 # Create your views here.
 
@@ -49,8 +50,51 @@ def contact(request):
 
 def contacts(request):
     contacts = Contact.objects.all()
-    return render(request, "app_contacts/all_contacts.html", {"contacts": contacts})
+    return render(request, "app_contacts/all_contacts.html", {"contacts_form": contacts})
 
+
+def detail(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    return render(request, 'app_contacts/detail.html', {'contact': contact})
+
+def add_phone_number(request, pk):
+    contact = Contact.objects.get(pk=pk)
+    phone_number_add_url = reverse_lazy('app_contacts:add_phone_number', kwargs={'pk': pk})
+    if request.method == 'POST':
+        phone_number_form = PhoneNumberForm(request.POST)
+        if phone_number_form.is_valid():
+            new_phone_number = phone_number_form.save()
+            new_phone_number.contact = contact
+            new_phone_number.save()
+            return redirect(to="app_contacts:detail", pk=pk)
+           
+    else:
+        phone_number_form = PhoneNumberForm()
+        
+
+    return render(request, 'app_contacts/add_phone_number.html', {
+        'phone_number_form': phone_number_form,
+        'phone_number_add_url': phone_number_add_url,
+    })
+
+def add_email_address(request, pk):
+    contact = Contact.objects.get(pk=pk)
+    email_adress_add_url = reverse_lazy('app_contacts:add_email_address', kwargs={'pk': pk})
+    if request.method == 'POST':
+        email_address_form = EmailAddressForm(request.POST)
+        if email_address_form.is_valid():
+            new_email_address = email_address_form.save()
+            new_email_address.contact = contact
+            new_email_address.save()
+            return redirect(to="app_contacts:detail", pk=pk)
+    else:
+        email_address_form = EmailAddressForm()
+
+    return render(request, 'app_contacts/add_email_address.html', 
+                  {
+                    'email_address_form': email_address_form,
+                    'email_adress_add_url': email_adress_add_url
+                    })
 
 def upcoming_birthdays(request):
     today = date.today()

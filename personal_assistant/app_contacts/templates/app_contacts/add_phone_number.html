@@ -1,0 +1,15 @@
+<!-- add_phone_number.html -->
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+  <h1>Add Phone Number</h1>
+  <p><strong>Contact:</strong> {{ contact.fullname }}</p>
+
+  <form method="post" action="{{ phone_number_add_url }}">
+    {% csrf_token %}
+    {{ phone_number_form.as_p }}
+    <button type="submit">Add Phone Number</button>
+  </form>
+
+  
+{% endblock %}

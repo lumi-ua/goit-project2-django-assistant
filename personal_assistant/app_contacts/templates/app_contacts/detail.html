@@ -1,0 +1,32 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+
+<h1>Contact Details</h1>
+
+<p><strong>Full Name:</strong> {{ contact.fullname }}</p>
+<p><strong>Address:</strong> {{ contact.address }}</p>
+<p><strong>Birthday:</strong> {{ contact.birthday }}</p>
+
+<h2>Phone Numbers</h2>
+<ul>
+    {% for phone_number in contact.phone_numbers.all %}
+        <li>{{ phone_number.phone_number }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Email Addresses</h2>
+<ul>
+    {% for email_address in contact.email_addresses.all %}
+        <li>{{ email_address.email }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Add Phone Number</a>
+
+<a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Add Email Adress</a>
+
+
+<a href="{% url 'app_contacts:contact' %}">Back to Contacts</a>
+
+{% endblock %}
