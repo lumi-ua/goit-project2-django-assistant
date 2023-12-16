@@ -1,23 +1,25 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-    <title>Contact Form</title>
+
+<h2>Contact Form</h2>
+
+  <form method="post" action="{% url 'app_contacts:contact' %}">
+    <title>Создание контакта</title>
 </head>
 <body>
-    <h1>Contact Form</h1>
-
-    <form method="post" action="{% url 'app_contacts:contact' %}">
+    <h1>Создание контакта</h1>
+    <form action="{% url 'app_contacts:contact' %}" method="post">
         {% csrf_token %}
-        
-        {% if form.errors.name %}
-        <div class="text-warning">{{ form.errors.name }}</div>
-        
-        {% endif %}  
-        {{ form.as_p }}
-        
-        <button type="submit">Save Contact</button>
+        {{ contact_form.as_p }}
+        <h2>Номер телефона</h2>
+        {{ phone_number_form.as_p }}
+        <h2>Email адрес</h2>
+        {{ email_address_form.as_p }}
+        <button type="submit">Сохранить контакт</button>
     </form>
 </body>
 </html>
+
 
 {% endblock %}

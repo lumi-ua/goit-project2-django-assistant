@@ -1,35 +1,51 @@
 from datetime import date, datetime, timedelta
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from django.http import HttpResponseBadRequest
 
-from .forms import ContactForm
+from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
 from .models import Contact
 
 # Create your views here.
 
 
 
+@login_required
 def contact(request):
-    form = ContactForm()  
     if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            new_contact = form.save()
-            new_contact.save()
-            return redirect(to="app_assistant:main")   
+        contact_form = ContactForm(request.POST)
+        phone_number_form = PhoneNumberForm(request.POST)
+        email_address_form = EmailAddressForm(request.POST)
+
+        if contact_form.is_valid() and phone_number_form.is_valid() and email_address_form.is_valid():
+            new_contact = contact_form.save() 
+
+            phone_number = phone_number_form.save(commit=False)
+            phone_number.contact = new_contact
+            phone_number.save()
+
+            email_address = email_address_form.save(commit=False)
+            email_address.contact = new_contact
+            email_address.save()
+
+            return redirect(to="app_assistant:main")
+
     else:
-        return render(
-            request,
-            "app_contacts/contact.html",
-            {"form": form},
-        ) 
+        contact_form = ContactForm()
+        phone_number_form = PhoneNumberForm()
+        email_address_form = EmailAddressForm()
+
     return render(
         request,
         "app_contacts/contact.html",
-        {"form": ContactForm()},
-    )  
+        {
+            "contact_form": contact_form,
+            "phone_number_form": phone_number_form,
+            "email_address_form": email_address_form,
+        },
+    )
 
 def contacts(request):
     contacts = Contact.objects.all()

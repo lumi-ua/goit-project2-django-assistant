@@ -1,14 +1,31 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import User
+
 
 # Create your models here.
+
 
 class Contact(models.Model):
     fullname = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = PhoneNumberField(blank=False)
-    email = models.EmailField(unique=True)
     birthday = models.DateField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    
+    
 
-    def __str__(self):
-        return f"{self.fullname} ({self.phone_number})"
+class EmailAddress(models.Model):
+    email = models.EmailField(unique=True, max_length=20, null=True)
+    contact = models.ForeignKey(
+        Contact, on_delete=models.CASCADE, default=None, null=True, related_name='email_addresses'
+    )
+
+    
+   
+class PhoneNumber(models.Model):
+    phone_number = PhoneNumberField(null=True,)
+    contact = models.ForeignKey(
+        Contact, on_delete=models.CASCADE, default=None, null=True, related_name='phone_numbers'
+    )
+
+    
