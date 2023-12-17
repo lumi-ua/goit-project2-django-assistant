@@ -22,11 +22,7 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Add Phone Number</a>
 
-<a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Add Email Adress</a>
-
-
-<a href="{% url 'app_contacts:contact' %}">Back to Contacts</a>
+<a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
 
 {% endblock %}

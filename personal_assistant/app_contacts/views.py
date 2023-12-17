@@ -1,10 +1,11 @@
 from datetime import date, datetime, timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db.models import Q
 from django.urls import reverse_lazy
+from django.core.exceptions import ObjectDoesNotExist
 
-from django.http import HttpResponseBadRequest
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
 from .models import Contact, PhoneNumber, EmailAddress
@@ -57,6 +58,8 @@ def detail(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     return render(request, 'app_contacts/detail.html', {'contact': contact})
 
+
+
 def add_phone_number(request, pk):
     contact = Contact.objects.get(pk=pk)
     phone_number_add_url = reverse_lazy('app_contacts:add_phone_number', kwargs={'pk': pk})
@@ -77,6 +80,8 @@ def add_phone_number(request, pk):
         'phone_number_add_url': phone_number_add_url,
     })
 
+
+
 def add_email_address(request, pk):
     contact = Contact.objects.get(pk=pk)
     email_adress_add_url = reverse_lazy('app_contacts:add_email_address', kwargs={'pk': pk})
@@ -95,6 +100,7 @@ def add_email_address(request, pk):
                     'email_address_form': email_address_form,
                     'email_adress_add_url': email_adress_add_url
                     })
+
 
 def upcoming_birthdays(request):
     today = date.today()
@@ -119,12 +125,12 @@ def search_contacts(request):
     try:
         contacts = Contact.objects.filter(
             Q(fullname__icontains=query)
-            | Q(phone_number__icontains=query)
-            | Q(email__icontains=query)
-        )
+            | Q(phone_numbers__phone_number__icontains=query)
+            | Q(email_addresses__email__icontains=query)
+        ).distinct()
     except Contact.DoesNotExist:
         contacts = []
-        error_message = "Контакт не знайдено"
+        error_message = "Сontact not found"
         
 
     return render(request, "app_contacts/search_contacts.html", {"contacts": contacts, "error_message": error_message})
@@ -132,48 +138,57 @@ def search_contacts(request):
 
 
 
-
-# def edit_contact(request, pk):
-#     contact = get_object_or_404(Contact, pk=pk)
-
-#     if request.method == "POST":
-#         form = ContactForm(request.POST, instance=contact)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('app_assistant:main')
-#             # return redirect('app_contacts:contact_detail', pk=pk)
-            
-#     else:
-#         form = ContactForm(instance=contact)
-
-#     return render(request, 'app_contacts/edit_contact.html', {'form': form, 'contact': contact})
-
 def edit_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
-    birthday_str = ''
-    
+    birthday_str = contact.birthday.strftime("%d.%m.%Y") if contact.birthday else ""
 
     if request.method == "POST":
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
             form.save()
-            return redirect('app_assistant:main')
+            messages.success(request, "Контакт успешно отредактирован")
+            return redirect(to="app_contacts:detail", pk=pk)
+        else:
+            messages.error(request, "При редактировании контакта возникли ошибки")
 
     else:
         form = ContactForm(instance=contact)
-        if request.method == "POST":
-            birthday_str = contact.birthday.as_formatted_str("%d.%m.%Y")
 
-    return render(request, 'app_contacts/edit_contact.html', {'form': form, 'contact': contact, 'birthday_str': birthday_str})
-
+    return render(request, "app_contacts/edit_contact.html", {
+        "form": form,
+        "contact": contact,
+        "birthday_str": birthday_str,
+    })
 
 
 def delete_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         contact.delete()
-        return redirect('app_contacts:main')
+        messages.success(request, "Контакт успешно удален")
+        return redirect(to="app_assistant:main")
 
-    return render(request, 'app_contacts/delete_contact.html', {'contact': contact})
+    else:
+        return render(request, "app_contacts/delete_contact.html", {"contact": contact})
+    
+
+# def delete_email(request, pk):
+#     try:
+#         email = EmailAddress.objects.get(pk=pk)
+#         email.delete()
+#     except ObjectDoesNotExist:
+#         email = None
+
+#     return detail(request, pk)
+
+
+# def delete_phone(request, pk):
+#     try:
+#         email = PhoneNumber.objects.get(pk=pk)
+#         email.delete()
+#     except ObjectDoesNotExist:
+#         email = None
+
+#     return detail(request, pk)
 

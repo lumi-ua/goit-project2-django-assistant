@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>Contact Form</h2>
+
 
   <form method="post" action="{% url 'app_contacts:contact' %}">
     <title>Создание контакта</title>
@@ -16,7 +16,7 @@
         {{ phone_number_form.as_p }}
         <h2>Email адрес</h2>
         {{ email_address_form.as_p }}
-        <button type="submit">Сохранить контакт</button>
+        <button type="submit" class="btn btn-primary">Сохранить контакт</button>
     </form>
 </body>
 </html>
