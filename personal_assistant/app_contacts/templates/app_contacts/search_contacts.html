@@ -2,22 +2,42 @@
 
 {% block content %}
 
-  <h1>Search Contacts</h1>
+<h1>Поиск контактов</h1>
 
-  <form action="{% url 'app_contacts:search_contacts' %}" method="get">
-    <label for="query">Search:</label>
-    <input type="text" name="query" id="query" required>
-    <button type="submit">Search</button>
-  </form>
+<form action="{% url 'app_contacts:search_contacts' %}" method="get">
+  <input type="text" name="query" placeholder="Введите имя, номер телефона или email адрес">
+  <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 
-  {% if error_message %}
-    <p>{{ error_message }}</p>
-  {% endif %}
+{% if error_message %}
+  <p class="error"><strong>{{ error_message }}</strong></p>
+{% endif %}
 
+{% if contacts %}
+  <h2>Результаты поиска:</h2>
   <ul>
     {% for contact in contacts %}
-      <li>{{ contact.fullname }} - {{ contact.phone_number }} - {{ contact.email }}</li>
+      <li>
+        <a href="{% url 'app_contacts:detail' pk=contact.pk %}">{{ contact.fullname }}</a>
+        {% if contact.phone_numbers %}
+          (<span>Номера телефонов:</span>
+          {% for phone_number in contact.phone_numbers.all %}
+              {% if not forloop.first %}, {% endif %}{{ phone_number.phone_number }}
+            {% endfor %}
+          )
+        {% endif %}
+        {% if contact.email_addresses %}
+          (<span>Email адреса:</span>
+          {% for email_address in contact.email_addresses.all %}
+              {% if not forloop.first %}, {% endif %}{{ email_address.email }}
+            {% endfor %}
+          )
+        {% endif %}
+      </li>
     {% endfor %}
   </ul>
+{% else %}
+  <p>Ничего не найдено.</p>
+{% endif %}
 
 {% endblock %}

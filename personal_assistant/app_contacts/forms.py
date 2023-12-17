@@ -1,33 +1,47 @@
 from django.forms import ModelForm, CharField, EmailField, DateField
-from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
-from phonenumbers import is_valid_number
+from django import forms
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from .models import Contact, PhoneNumber, EmailAddress
 
-from .models import Contact
+
+
 
 class ContactForm(ModelForm):
-    fullname = CharField(max_length=50, required=True)
-    address = CharField(max_length=50, required=False)
-    phone_number = PhoneNumberField(required=True)                               
-    email = EmailField(max_length=25, required=True)
-    birthday = DateField(required=False, input_formats=["%d.%m.%Y"])                        
-                            
-
+    fullname = CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Name Lastname', "class": "form-control"}))
+    address = CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Сity, Street, House number', "class": "form-control"}))  
+    birthday = DateField(required=False, input_formats=["%d.%m.%Y"], widget=forms.DateInput(attrs={'placeholder': 'DD.MM.YYYY', 'class': 'form-control'}))                        
     class Meta:
         model = Contact
-        fields = ["fullname", "address", "phone_number", "email", "birthday"]
+        fields = ["fullname", "address", "birthday"]
+        exclude = ["user"]
 
-
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data["phone_number"]
-
-        if not is_valid_number(phone_number):
-            raise ValidationError("Incorrect phone number format")           
-
-        return phone_number
     
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        if not '@' in email or '.' not in email.split('@')[-1]:
-            raise ValidationError('Invalid email address.')
-        return email
+
+class PhoneNumberForm(forms.ModelForm):
+        phone_number = PhoneNumberField(
+            widget=PhoneNumberPrefixWidget(attrs={'placeholder': '+380', 'class': 'form-control'})
+        )
+        class Meta:
+            model = PhoneNumber
+            fields = ["phone_number"]
+            exclude = ["contact"]
+
+class EmailAddressForm(forms.ModelForm):
+        email = EmailField(max_length=100, required=True, widget=forms.EmailInput(attrs={'placeholder': 'example@email.com', 'class': 'form-control'}))
+
+        class Meta:
+            model = EmailAddress
+            fields = ["email"]
+            exclude = ["contact"]
+
+
+    
+
+
+    
+
+
+    
+
+
