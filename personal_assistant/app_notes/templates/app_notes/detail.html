@@ -3,12 +3,68 @@
 {% block header %}
     {% include 'includes/headerNote.html' %}
 {% endblock %}
-{% load static %}
+
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
-  <h1>Note Details</h1>
-  <h2>{{ note.name }}</h2>
-  <p>{{ note.description }}</p>
-  <p>Tags: {{ note.tag_list }}</p>
-  <!-- Display other details of the note -->
+    <div class="h-screen py-6">
+        <nav class="mb-5 border-b-4">
+            <ul class="flex items-center justify-center gap-3 mb-10">
+                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/" role="button"> Go back to the main page </a></li>
+            </ul>
+        </nav>
+        <style>
+            /* Ваші стилі тут */
+            .note-details {
+                /* стилі для блоку з деталями запису */
+                width: 96px;
+            }
+
+            .note-details h1 {
+                /* стилі для заголовку */
+                font-size: 24px;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: #333;
+            }
+
+            .note-details p {
+                /* стилі для тексту опису, дати, статусу та тегів */
+                font-size: 20px;
+                color: #666;
+                margin-bottom: 10px;
+            }
+
+            .note-details kbd {
+                /* стилі для дати */
+                font-size: 18px;
+                color: #444;
+            }
+
+            .text-green-600 {
+                /* стилі для тексту статусу "Completed" */
+                color: green;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .text-red-600 {
+                /* стилі для тексту статусу "Not implemented" */
+                color: red;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        </style>
+
+        <div class="note-details">
+            <h1>{{ note.name }}</h1>
+            <p>Description: <small>{{ note.description }}</small></p>
+            <p>Date: <kbd>{{ note.created.date }}</kbd></p>
+            {% if note.done %}
+                <p>Status: <ins class="text-green-600">Completed</ins></p>
+            {% else %}
+                <p>Status: <ins class="text-red-600">Not implemented</ins></p>
+            {% endif %}
+            <p>Tags: <small>{{ note.tag_list }}</small></p>
+        </div>
+    </div>
 {% endblock %}
+

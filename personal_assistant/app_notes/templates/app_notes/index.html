@@ -14,20 +14,19 @@
             <ul class="flex items-center justify-center gap-3 mb-10">
                 <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/note/" role="button">Add note</a></li>
                 <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/tag/" role="button">Add Tag</a></li>
-                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/" role="button"> Go back to the main page </a></li>
             </ul>
         </nav>
-
         <h4 class="font-medium leading-tight text-lg text-gray-300 mb-1">Search:</h4>
 
-        <form action="{% url 'app_notes:search_note' %}" method="get">
-            <input class="w-full rounded-lg border-lip mb-8" name="q" type="text" placeholder="Search...">
+        <form action="{% url 'app_notes:search_note' %}" method="get" class="flex mb-8">
+            <input class="w-full rounded-lg border-lip" name="q" type="text" placeholder="Enter the name of the note...">
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-l">Search</button>
         </form>
 
         <table class="min-w-full text-center border shadow">
             <thead class="bg-lip text-gray-300 border-b">
                 <tr>
-                    <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">TASK</th>
+                    <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">NAME</th>
                     <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">STATUS</th>
                     <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">DELETE</th>
                 </tr>
