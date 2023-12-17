@@ -8,12 +8,15 @@ from .forms import RegisterForm
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
-def my_logout_view(request):
+@login_required
+def logout_view(request):
     if request.method == 'GET':
+        username = request.user.username
         logout(request)
-        # Редирект або відповідна обробка після виходу
-        return redirect('/')
+        return render(request, "users/signout.html", {"username": username})
+    redirect(to="app_assistant:root")
 
 
 class RegisterView(View):
