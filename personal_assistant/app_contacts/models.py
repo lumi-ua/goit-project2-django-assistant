@@ -11,7 +11,7 @@ class Contact(models.Model):
     fullname = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     
     
 
