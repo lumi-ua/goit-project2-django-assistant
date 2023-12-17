@@ -25,4 +25,6 @@
 
 <a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
 
+<a href="{% url 'app_contacts:delete_contact' pk=contact.pk %}" class="btn btn-primary">Delete Contact</a>
+
 {% endblock %}
