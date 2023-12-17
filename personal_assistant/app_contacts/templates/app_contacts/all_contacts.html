@@ -13,9 +13,30 @@
                 Phone Number: {{ contact.phone_number }}<br>
                 Email: {{ contact.email }}<br>
                 Birthday: {{ contact.birthday }}
+                <a href="{% url 'app_contacts:detail' pk=contact.pk %}" class="btn btn-primary">Detail</a>
             </li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'app_contacts:search_contacts' %}" class="btn btn-primary">Search Contact</a>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if contacts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ contacts.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+            </span>
+
+            {% if contacts.has_next %}
+                <a href="?page={{ contacts.next_page_number }}">next</a>
+                <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% else %}
     <p>No contacts available.</p>
 {% endif %}

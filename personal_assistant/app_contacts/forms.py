@@ -34,14 +34,3 @@ class EmailAddressForm(forms.ModelForm):
             model = EmailAddress
             fields = ["email"]
             exclude = ["contact"]
-
-
-    
-
-
-    
-
-
-    
-
-

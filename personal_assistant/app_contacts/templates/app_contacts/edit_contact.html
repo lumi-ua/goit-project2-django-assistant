@@ -2,43 +2,43 @@
 
 {% block content %}
 
-<h1>Редактировать контакт - {{ contact.fullname }}</h1>
+<h1>Редагувати контакт контакт - {{ contact.fullname }}</h1>
 
 <form method="post">
   {% csrf_token %}
 
   <div class="form-group">
-    <label for="fullname">Имя и фамилия:</label>
+    <label for="fullname">Им'я та фамілія:</label>
     <input type="text" id="fullname" name="fullname" value="{{ contact.fullname }}" class="form-control" required>
   </div>
 
   <div class="form-group">
-    <label for="address">Адрес:</label>
+    <label for="address">Адреса:</label>
     <input type="text" id="address" name="address" value="{{ contact.address }}" class="form-control">
   </div>
 
   <div class="form-group">
-    <label for="birthday">Дата рождения:</label>
+    <label for="birthday">Дата народження:</label>
     <input type="date" id="birthday" name="birthday" value="{{ birthday_str.birthday_str }}" class="form-control">
   </div>
 
   <div class="form-group">
-    <label for="phone_numbers">Номера телефонов:</label>
+    <label for="phone_numbers">Номера телефонів:</label>
     {% for phone_number in contact.phone_numbers.all %}
       <input type="text" name="phone_numbers" value="{{ phone_number.phone_number }}" class="form-control mb-2">
     {% endfor %}
-    <a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Добавить номер телефона</a>
+    <a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Добавити номер телефону</a>
   </div>
 
   <div class="form-group">
-    <label for="email_addresses">Email адреса:</label>
+    <label for="email_addresses">Email адреси:</label>
     {% for email_address in contact.email_addresses.all %}
       <input type="email" name="email_addresses" value="{{ email_address.email }}" class="form-control mb-2">
     {% endfor %}
-    <a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Добавить email адрес</a>
+    <a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Добавити email адресу</a>
   </div>
 
-  <button type="submit" class="btn btn-primary">Сохранить</button>
+  <button type="submit" class="btn btn-primary">Зберегти</button>
 </form>
 
 {% endblock %}

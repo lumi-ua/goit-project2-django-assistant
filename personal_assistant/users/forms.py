@@ -6,8 +6,8 @@ from django.forms import CharField, TextInput, EmailField, EmailInput, PasswordI
 
 class RegisterForm(UserCreationForm):
     username = CharField(max_length=100, required=True, widget=TextInput(attrs={"class": "form-control"}))
-    first_name = CharField(max_length=150, widget=TextInput(attrs={"class": "form-control"}))
-    last_name = CharField(max_length=150, widget=TextInput(attrs={"class": "form-control"}))
+    first_name = CharField(max_length=150, required=False, widget=TextInput(attrs={"class": "form-control"}))
+    last_name = CharField(max_length=150, required=False, widget=TextInput(attrs={"class": "form-control"}))
     email = EmailField(max_length=150, required=True, widget=EmailInput(attrs={"class": "form-control"}))
     password1 = CharField(max_length=20, min_length=8, required=True,
                           widget=PasswordInput(attrs={"class": "form-control"}))

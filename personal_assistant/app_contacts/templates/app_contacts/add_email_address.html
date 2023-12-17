@@ -8,7 +8,7 @@
   <form method="post" action="{{ email_adress_add_url }}">
     {% csrf_token %}
     {{ email_address_form.as_p }}
-    <button type="submit">Add Email Address</button>
+    <button type="submit" class="btn btn-primary">Add Email Address</button>
   </form>
 
 {% endblock %}

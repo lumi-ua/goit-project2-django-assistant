@@ -20,7 +20,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacts</a>
+                        <a class="nav-link" href="{% url 'app_contacts:dashboard' %}">Contacts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app_notes:main' %}">Notes</a>

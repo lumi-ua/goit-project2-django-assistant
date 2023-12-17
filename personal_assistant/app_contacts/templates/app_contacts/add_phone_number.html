@@ -8,7 +8,7 @@
   <form method="post" action="{{ phone_number_add_url }}">
     {% csrf_token %}
     {{ phone_number_form.as_p }}
-    <button type="submit">Add Phone Number</button>
+    <button type="submit" class="btn btn-primary">Add Phone Number</button>
   </form>
 
   
