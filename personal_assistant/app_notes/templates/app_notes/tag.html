@@ -5,7 +5,17 @@
 {% endblock %}
 {% load static %}
 {% block content %}
-
+  <div class="h-screen py-6">
+    <nav class="mb-5 border-b-4">
+      <ul class="flex items-center justify-center gap-3 mb-10">
+        <li><a
+            class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition"
+            href="/app_notes/note/" role="button">Add note</a></li>
+        <li><a
+            class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition"
+            href="/app_notes/" role="button"> Go back to the main page </a></li>
+      </ul>
+    </nav>
     <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">  <h1>Create Tag</h1>
   <!-- Tag Creation Form -->
   <form method="post">

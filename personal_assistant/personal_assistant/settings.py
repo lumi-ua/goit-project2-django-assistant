@@ -143,7 +143,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/users/login"
-
+# MEDIA_ROOT = 'https://www.dropbox.com/scl/fo/zel2emff8k7vcnzm3a44w/h?rlkey=cok7wpxh7hh1d8yx9a0lhj02j&dl=0'
+# MEDIA_URL = '/img/'
+# STATIC_URL = "static/"
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -159,5 +163,7 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_OAUTH2_TOKEN = 'sl.Br0sOwOuzA2mWSTFkWT2B4VezL0eCMAskfqcgfcyDU_dUtW0_AupYSYgQnL0XcVagKXgT3KAMhF64isC6G44nasnm7yR2PD9HBVs9f4WT8UsUD67OeBHz-2dz5EdpfcoSeSzm0dA61S0'
+DROPBOX_OAUTH2_TOKEN = env('DROPBOX_ROOT_PATH')
 DROPBOX_ROOT_PATH = env('DROPBOX_ROOT_PATH')
+DROPBOX_APP_KEY = env('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET')

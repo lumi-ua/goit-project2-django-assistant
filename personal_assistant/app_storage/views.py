@@ -12,9 +12,12 @@ from .models import Picture
 from decouple import config
 
 DROPBOX_OAUTH2_TOKEN = config('DROPBOX_OAUTH2_TOKEN')
-print(DROPBOX_OAUTH2_TOKEN)
+
+
 def main(request):
     return render(request, 'app_storage/index.html')
+
+
 @login_required
 def upload_file(request):
     if request.method == 'POST':
@@ -33,6 +36,7 @@ def upload_file(request):
         form = FileUploadForm()
     return render(request, 'app_storage/dropbox.html', {'form': form})
 
+
 @login_required
 def upload(request):
     form = PictureForm(instance=Picture())
@@ -43,14 +47,14 @@ def upload(request):
             pic.user = request.user
             pic.save()
             return redirect(to="app_storage:pictures")
-    return render(request, 'app_storage/upload.html', context={"title": "Web 9 Group!", "form": form})
+    return render(request, 'app_storage/upload.html', context={"title": "Group 6", "form": form})
 
 
 @login_required
 def pictures(request):
     pictures = Picture.objects.filter(user=request.user).all()
     return render(request, 'app_storage/pictures.html',
-                  context={"title": "Group6", "pictures": pictures, "media": settings.MEDIA_URL})
+                  context={"title": "Group 6", "pictures": pictures, "media": settings.MEDIA_URL})
 
 
 @login_required
