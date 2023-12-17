@@ -1,21 +1,28 @@
-from storages.backends.dropbox import DropboxStorage
-from dropbox.files import WriteMode
-from .forms import FileUploadForm
-import os
 
+import os
+from storages.backends.dropbox import DropBoxStorage
+from dropbox.files import WriteMode
+
+from decouple import config
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-
+from .forms import FileUploadForm
 from .forms import PictureForm
 from .models import Picture
-from decouple import config
+
 
 DROPBOX_OAUTH2_TOKEN = config('DROPBOX_OAUTH2_TOKEN')
 
 
 def main(request):
     return render(request, 'app_storage/index.html')
+
+
+# dbx = DropboxStorage(settings.DROPBOX_OAUTH2_TOKEN)
+# mode = WriteMode.overwrite
+# name = instance.file.file.name
+# dbx.client.files_upload(bytes(data, 'utf-8'), name, mode)
 
 
 @login_required
@@ -25,7 +32,7 @@ def upload_file(request):
         if form.is_valid():
             file_instance = form.save(commit=False)
             file_instance.save()
-            dbx = DropboxStorage(token=DROPBOX_OAUTH2_TOKEN)
+            dbx = DropBoxStorage(token=DROPBOX_OAUTH2_TOKEN)
             mode = WriteMode.overwrite
             data = "Your data here"
             name = "YourFileName.txt"
