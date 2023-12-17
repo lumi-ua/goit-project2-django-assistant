@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+{% extends "app_storage/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{% static 'app_storage/cp-file-manager.png' %}" alt="" width="1527" height="827">
+    <h1 class="display-5 fw-bold">File manager</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">A new generation of assistant</p>
+    </div>
+</div>
+
+{% endblock %}
 </body>
 </html>

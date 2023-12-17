@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'app_contacts',
     "noteapp",
     'app_assistant',
-    'users'
+    'users',
+    'app_storage'
 
 
 
@@ -157,3 +158,6 @@ EMAIL_USE_TLS = False
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN= 'sl.Br0sOwOuzA2mWSTFkWT2B4VezL0eCMAskfqcgfcyDU_dUtW0_AupYSYgQnL0XcVagKXgT3KAMhF64isC6G44nasnm7yR2PD9HBVs9f4WT8UsUD67OeBHz-2dz5EdpfcoSeSzm0dA61S0'
+DROPBOX_ROOT_PATH= env('DROPBOX_ROOT_PATH')

@@ -18,6 +18,8 @@ phonenumbers = "^8.13.26"
 django-phonenumber-field = "^7.2.0"
 environ = "^1.0"
 django-storages = "^1.14.2"
+dropbox = "^11.36.2"
+python-decouple = "^3.8"
 
 
 [build-system]
