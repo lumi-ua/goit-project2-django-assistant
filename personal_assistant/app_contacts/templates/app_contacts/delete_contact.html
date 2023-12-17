@@ -4,7 +4,10 @@
   <h2>Ви впевнені, що хочете видалити контакт "{{ contact.fullname }}"?</h2>
   <form method="post" action="{% url 'app_contacts:delete_contact' pk=contact.pk %}">
     {% csrf_token %}
-    <button type="submit">Так, видалити</button>
-    <a href="{% url 'app_assistant:main' %}">Ні, скасувати</a>
+    <button type="submit" class="btn btn-primary">Так, видалити</button>
+    <a href="{% url 'app_assistant:main' %}"class="btn btn-primary">Ні, скасувати</a>
   </form>
 {% endblock %}
+
+
+<!-- "{% url 'app_contacts:contact' %}" -->

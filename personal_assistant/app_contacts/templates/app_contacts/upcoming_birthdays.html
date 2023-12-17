@@ -2,27 +2,36 @@
 
 {% block content %}
 
-<title>Upcoming Birthdays</title>
-</head>
-<body>
-  <h1>Upcoming Birthdays</h1>
+{% if message %}
+  <p class="alert alert-warning">{{ message }}</p>
+{% endif %}
 
-  <form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
-    <label for="days">Days in Future:</label>
-    <input type="number" name="days" id="days" value="7" min="1" required>
-    
-    <button type="submit">Filter</button>
-  </form>
+<form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
+  <label for="days">Дней в будущем:</label>
+  <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
+  <button type="submit" class="btn btn-primary">Фильтр</button>
+</form>
 
-  {% if contacts %}
-    <ul>
+{% if contacts %}
+  <h1>Ближайшие дни рождения</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Имя и фамилия</th>
+        <th>Дата рождения</th>
+      </tr>
+    </thead>
+    <tbody>
       {% for contact in contacts %}
-        <li> <strong>{{ contact.fullname }} - {{ contact.birthday }}</strong><br></li>
+        <tr>
+          <td><a href="{% url 'app_contacts:detail' pk=contact.pk %}">{{ contact.fullname }}</a></td>
+          <td>{{ contact.birthday }}</td>
+        </tr>
       {% endfor %}
-    </ul>
-  
-  {% endif %}
-  
-</body>
-{% endblock %}
+    </tbody>
+  </table>
+{% else %}
+  <p>Нет контактов с предстоящими днями рождения</p>
+{% endif %}
 
+{% endblock %}

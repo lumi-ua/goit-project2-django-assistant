@@ -1,0 +1,14 @@
+<!-- add_email_address.html -->
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+  <h1>Add Email Address</h1>
+  <p><strong>Contact:</strong> {{ contact.fullname }}</p>
+
+  <form method="post" action="{{ email_adress_add_url }}">
+    {% csrf_token %}
+    {{ email_address_form.as_p }}
+    <button type="submit">Add Email Address</button>
+  </form>
+
+{% endblock %}
