@@ -7,7 +7,7 @@ from django.contrib import messages
 from .forms import RegisterForm
 
 from django.contrib.auth import logout
-from django.shortcuts import redirect
+
 
 def my_logout_view(request):
     if request.method == 'GET':
@@ -29,9 +29,11 @@ class RegisterView(View):
         if form.is_valid():
             form.save()
             username = form.cleaned_data["username"]
-            messages.success(request, f'Вітаємо, {username}! Ваш акаунт успішно створений')
+            messages.success(
+                request, f'Вітаємо, {username}! Ваш акаунт успішно створений')
             return redirect(to='users:login')
         return render(request, self.template_name, {"form": form})
+
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'users/password_reset.html'
