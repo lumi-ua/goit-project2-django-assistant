@@ -2,7 +2,7 @@
 import unittest
 
 from django.test import Client
-from ..noteapp.forms import NoteForm
+from ..app_notes.forms import NoteForm
 
 class NoteNewTestCase(unittest.TestCase):
 

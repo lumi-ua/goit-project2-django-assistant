@@ -1,0 +1,20 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerNote.html' %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">  <h1>Create Tag</h1>
+  <!-- Tag Creation Form -->
+  <form method="post">
+    {% csrf_token %}
+    <label for="name">Tag Name:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Create</button>
+  </form>
+  {% if error %}
+    <p>{{ error }}</p>
+  {% endif %}
+{% endblock %}

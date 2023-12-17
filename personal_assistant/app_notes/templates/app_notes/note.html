@@ -1,0 +1,24 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerNote.html' %}
+{% endblock %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
+  <h1>Create Note</h1>
+  <!-- Note Creation Form -->
+  <form method="post">
+    {% csrf_token %}
+    <label for="name">Note Name:</label>
+    <input type="text" id="name" name="name">
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea>
+    <!-- Include tags selection -->
+    {% for tag in tags %}
+      <input type="checkbox" id="tag_{{ tag.id }}" name="tags" value="{{ tag.name }}">
+      <label for="tag_{{ tag.id }}">{{ tag.name }}</label><br>
+    {% endfor %}
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}

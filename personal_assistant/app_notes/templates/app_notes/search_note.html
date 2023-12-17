@@ -1,0 +1,25 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerNote.html' %}
+{% endblock %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">  <h1>Search Notes</h1>
+  <!-- Search Form -->
+  <form method="get">
+    <label for="q">Search:</label>
+    <input type="text" id="q" name="q">
+    <button type="submit">Search</button>
+  </form>
+  <!-- Display search results -->
+  {% for note in notes %}
+    <div>
+      <h2>{{ note.name }}</h2>
+      <p>{{ note.description }}</p>
+      <!-- Display other details of the note -->
+    </div>
+  {% empty %}
+    <p>No notes found.</p>
+  {% endfor %}
+{% endblock %}

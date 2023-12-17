@@ -1,0 +1,14 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerNote.html' %}
+{% endblock %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
+  <h1>Note Details</h1>
+  <h2>{{ note.name }}</h2>
+  <p>{{ note.description }}</p>
+  <p>Tags: {{ note.tag_list }}</p>
+  <!-- Display other details of the note -->
+{% endblock %}
