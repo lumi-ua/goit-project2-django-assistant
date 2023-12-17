@@ -1,0 +1,70 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerNote.html' %}
+{% endblock %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
+
+
+    <div class="h-screen py-6">
+        <nav class="mb-5 border-b-4">
+            <ul class="flex items-center justify-center gap-3 mb-10">
+                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/note/" role="button">Add note</a></li>
+                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/tag/" role="button">Add Tag</a></li>
+                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/" role="button"> Go back to the main page </a></li>
+            </ul>
+        </nav>
+
+        <h4 class="font-medium leading-tight text-lg text-gray-300 mb-1">Search:</h4>
+
+        <form action="{% url 'app_notes:search_note' %}" method="get">
+            <input class="w-full rounded-lg border-lip mb-8" name="q" type="text" placeholder="Search...">
+        </form>
+
+        <table class="min-w-full text-center border shadow">
+            <thead class="bg-lip text-gray-300 border-b">
+                <tr>
+                    <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">TASK</th>
+                    <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">STATUS</th>
+                    <th class="text-sm font-medium text-gray-300 px-6 py-4" scope="col">DELETE</th>
+                </tr>
+            </thead>
+            <tbody class="bg-gray-50 text-centre">
+                {% for note in page_obj %}
+                    <tr class="border-b shadow hover:bg-indigo-100 text-md font-medium">
+                        {% if not note.done %}
+                            <td><a href="/app_notes/detail/{{ note.id }}" class="text-gray-900">{{ note.name }}</a></td>
+                            <td><a href="/app_notes/done/{{ note.id }}" class="text-green-600">Mark as Done</a></td>
+                            <td><a href="/app_notes/delete/{{ note.id }}" class="text-red-600">Delete</a></td>
+                        {% else %}
+                            <td><s>{{ note.name }}</s></td>
+                            <td><a href="/app_notes/done/{{ note.id }}" class="text-green-600">Mark as Done</a></td>
+                            <td><a href="/app_notes/delete/{{ note.id }}" class="text-red-600">Delete</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination text-gray-300 mt-3 text-center">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

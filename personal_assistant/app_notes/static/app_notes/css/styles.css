@@ -1,0 +1,113 @@
+/* CSS стилі для index.html */
+
+/* Стилі для навігаційної панелі */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: white;
+}
+
+nav ul li a:hover {
+    background: #5a67d8;
+}
+
+/* Стилі для форми пошуку */
+form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Стилі для таблиці */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+thead {
+    background-color: #f5f5f5;
+}
+
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Стилі для пагінації */
+.pagination {
+    margin-top: 15px;
+}
+
+.step-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-links a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #5a67d8;
+}
+
+/* Style for the form container */
+form {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: black; /* Змінює колір тексту на чорний */
+}
+
+/* Style for form elements */
+label {
+  display: block; /* Make labels display in block */
+  margin-bottom: 5px; /* Add margin below each label */
+}
+
+input[type="text"],
+textarea {
+  width: 100%; /* Make text inputs and textareas take full width */
+  padding: 8px; /* Add padding */
+  margin-bottom: 10px; /* Add margin below inputs */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 4px; /* Add rounded corners */
+}
+
+button {
+  padding: 10px 20px; /* Add padding */
+  background-color: #007bff; /* Set background color */
+  color: white; /* Set text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Add rounded corners */
+  cursor: pointer; /* Add a pointer cursor */
+}
+
+/* Style for checkbox and labels */
+input[type="checkbox"] {
+  margin-right: 5px;
+  color: black; /* Змінює колір тексту на чорний для чекбоксів */
+}
+
