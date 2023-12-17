@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
@@ -12,6 +13,9 @@ from .models import Contact, PhoneNumber, EmailAddress
 
 # Create your views here.
 
+@login_required
+def dashboard(request):
+    return render(request, 'app_contacts/dashboard.html')
 
 
 @login_required
@@ -36,7 +40,7 @@ def contact(request):
             email_address.contact = new_contact
             email_address.save()
 
-            return redirect(to="app_assistant:main")
+            return redirect(to="app_contacts:dashboard")
 
     else:
         contact_form = ContactForm()
@@ -54,9 +58,12 @@ def contact(request):
     )
 
 @login_required
-def contacts(request):
+def contacts(request, page=1):
+    per_page = 10
     contacts = Contact.objects.filter(user=request.user)
-    return render(request, "app_contacts/all_contacts.html", {"contacts": contacts})
+    paginator = Paginator(list(contacts), per_page)
+    contacts_on_page = paginator.page(page)
+    return render(request, "app_contacts/all_contacts.html", {"contacts": contacts_on_page})
 
 
 @login_required

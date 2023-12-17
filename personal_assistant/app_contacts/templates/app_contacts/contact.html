@@ -5,18 +5,18 @@
 
 
   <form method="post" action="{% url 'app_contacts:contact' %}">
-    <title>Создание контакта</title>
+    <title>Створення контакту</title>
 </head>
 <body>
-    <h1>Создание контакта</h1>
+    <h1>Створення контакту</h1>
     <form action="{% url 'app_contacts:contact' %}" method="post">
         {% csrf_token %}
         {{ contact_form.as_p }}
-        <h2>Номер телефона</h2>
+        <h2>Номер телефону</h2>
         {{ phone_number_form.as_p }}
-        <h2>Email адрес</h2>
+        <h2>Email адреса</h2>
         {{ email_address_form.as_p }}
-        <button type="submit" class="btn btn-primary">Сохранить контакт</button>
+        <button type="submit" class="btn btn-primary">Зберегти контакт</button>
     </form>
 </body>
 </html>

@@ -1,0 +1,18 @@
+{% extends "app_assistant/base.html" %}
+
+{% block header %}
+    {% include 'includes/headerContact.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<h1>My Contacts</h1>
+
+<a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Сreate New Contact</a>
+
+<a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">My Contacts</a>
+
+<a href="{% url 'app_contacts:upcoming_birthdays' %}" class="btn btn-primary">Upcoming Birthdays</a>
+
+{% endblock content %}

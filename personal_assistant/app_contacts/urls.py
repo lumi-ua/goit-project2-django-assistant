@@ -3,7 +3,8 @@ from . import views
 
 app_name = 'app_contacts'
 
-urlpatterns = [    
+urlpatterns = [ 
+    path('dashboard', views.dashboard, name='dashboard'),   
     path('contact', views.contact, name='contact'),
     path('all-contacts', views.contacts, name='all_contacts'),
     path('upcoming-birthdays', views.upcoming_birthdays, name='upcoming_birthdays'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('detail/<int:pk>/', views.detail, name='detail'),
     path('add-phone-number/<int:pk>/', views.add_phone_number, name='add_phone_number'),
     path('add-email-address/<int:pk>/', views.add_email_address, name='add_email_address'),
+    
 ]

@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h1>Поиск контактов</h1>
+<h1>Пошук контактів</h1>
 
 <form action="{% url 'app_contacts:search_contacts' %}" method="get">
-  <input type="text" name="query" placeholder="Введите имя, номер телефона или email адрес">
+  <input type="text" name="query" placeholder="Введіть им'я, номер телефону або email адресу">
   <button type="submit" class="btn btn-primary">Поиск</button>
 </form>
 
@@ -14,20 +14,20 @@
 {% endif %}
 
 {% if contacts %}
-  <h2>Результаты поиска:</h2>
+  <h2>Результати пошуку:</h2>
   <ul>
     {% for contact in contacts %}
       <li>
         <a href="{% url 'app_contacts:detail' pk=contact.pk %}">{{ contact.fullname }}</a>
         {% if contact.phone_numbers %}
-          (<span>Номера телефонов:</span>
+          (<span>Номера телефонів:</span>
           {% for phone_number in contact.phone_numbers.all %}
               {% if not forloop.first %}, {% endif %}{{ phone_number.phone_number }}
             {% endfor %}
           )
         {% endif %}
         {% if contact.email_addresses %}
-          (<span>Email адреса:</span>
+          (<span>Email адреси:</span>
           {% for email_address in contact.email_addresses.all %}
               {% if not forloop.first %}, {% endif %}{{ email_address.email }}
             {% endfor %}
@@ -37,7 +37,7 @@
     {% endfor %}
   </ul>
 {% else %}
-  <p>Ничего не найдено.</p>
+  <p>Нічого не знайдено.</p>
 {% endif %}
 
 {% endblock %}

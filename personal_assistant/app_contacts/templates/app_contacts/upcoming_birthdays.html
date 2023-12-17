@@ -7,18 +7,18 @@
 {% endif %}
 
 <form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
-  <label for="days">Дней в будущем:</label>
+  <label for="days">Днів в майбутньому:</label>
   <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
-  <button type="submit" class="btn btn-primary">Фильтр</button>
+  <button type="submit" class="btn btn-primary">Фільтр</button>
 </form>
 
 {% if contacts %}
-  <h1>Ближайшие дни рождения</h1>
+  <h1>Найближчі дні народження</h1>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Имя и фамилия</th>
-        <th>Дата рождения</th>
+        <th>Им'я та фамілія</th>
+        <th>Дата народження</th>
       </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
     </tbody>
   </table>
 {% else %}
-  <p>Нет контактов с предстоящими днями рождения</p>
+  <p>Немає контактів з прийдешніми днями народження</p>
 {% endif %}
 
 {% endblock %}
