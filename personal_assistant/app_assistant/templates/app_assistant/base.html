@@ -8,52 +8,90 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=DM Sans' rel='stylesheet'>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'app_assistant/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'app_assistant/css/all.min.css' %}">    
 
     <title>{{title}}</title>
 </head>
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app_contacts:dashboard' %}">Contacts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app_notes:main' %}">Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Files</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
+<main class="d-flex flex-nowrap">
+  <h1 class="visually-hidden">Sidebars examples</h1>
 
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:login' %}">SignIn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:register' %}">SignUp</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      <span class="fs-4">Sidebar</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column">
+      <li>
+        <a class="nav-link active" href="/">
+          <i class="fa-solid fa-home"></i>
+          <span class="nav-item mx-auto">Home</span>
+        </a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a class="nav-link text-white" href="{% app_contacts:dashboard %}">
+          <i class="fa-solid fa-users"></i>
+          <span class="nav-item">Contacts</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-white" href="{% url 'app_notes:main' %}">
+          <i class="fa-solid fa-table-list"></i>
+          <span class="nav-item">Notes</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-white" href="#">
+          <i class="fa-solid fa-folders"></i>
+          <span class="nav-item">Files browser</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-white" href="{% url 'users:logout' %}">
+          <i class="fa-solid fa-sign-out"></i>
+          <span class="nav-item">Logout</span>
+        </a>
+      </li>
+      {% else %}
+      <li>
+        <a class="nav-link text-white" href="{% url 'users:login' %}">
+          <i class="fa-solid fa-user"></i>
+          <span class="nav-item">SignIn</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-white" href="{% url 'users:register' %}">
+          <i class="fa-solid fa-user-check"></i>
+          <span class="nav-item">SignUp</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>Username</strong>
+      </a>
+    </div>
+  </div>
+  <div class="b-example-divider b-example-vr"></div>
+
+  <div class="container-fluid">
     {% block content %}
     {% endblock %}
-</div>
+    <div class="flex-wrap">
+    </div>
+  </div>
+
+</main>
+
 </body>
 </html>
