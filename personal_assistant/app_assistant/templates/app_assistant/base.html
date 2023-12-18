@@ -36,7 +36,7 @@
       </li>
       {% if user.is_authenticated %}
       <li>
-        <a class="nav-link text-white" href="{% app_contacts:dashboard %}">
+        <a class="nav-link text-white" href="{% url 'app_contacts:dashboard' %}">
           <i class="fa-solid fa-users"></i>
           <span class="nav-item">Contacts</span>
         </a>
