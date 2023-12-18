@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -19,6 +19,10 @@ def dashboard(request):
 
 @login_required
 def contact(request):
+    contact_form = ContactForm()
+    phone_number_form = PhoneNumberForm()
+    email_address_form = EmailAddressForm()
+
     if request.method == "POST":
         contact_form = ContactForm(request.POST)
         phone_number_form = PhoneNumberForm(request.POST)
@@ -33,18 +37,13 @@ def contact(request):
             phone_number.contact = new_contact
             phone_number.save()
 
-            
-            email_address = email_address_form.save(commit=False)
-            
-            email_address.contact = new_contact
-            email_address.save()
+            email_address_data = email_address_form.cleaned_data
+            if email_address_data.get("email"):
+                email_address = email_address_form.save(commit=False)
+                email_address.contact = new_contact
+                email_address.save()
 
             return redirect(to="app_contacts:dashboard")
-
-    else:
-        contact_form = ContactForm()
-        phone_number_form = PhoneNumberForm()
-        email_address_form = EmailAddressForm()
 
     return render(
         request,
@@ -55,6 +54,7 @@ def contact(request):
             "email_address_form": email_address_form,
         },
     )
+
 
 @login_required
 def contacts(request, page=1):
