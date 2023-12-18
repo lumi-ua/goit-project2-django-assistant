@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
 from .models import Contact, PhoneNumber, EmailAddress
@@ -62,7 +62,8 @@ def contacts(request, page=1):
     contacts = Contact.objects.filter(user=request.user)
     paginator = Paginator(list(contacts), per_page)
     contacts_on_page = paginator.page(page)
-    return render(request, "app_contacts/all_contacts.html", {"contacts": contacts_on_page})
+    return render(request, "app_contacts/all_contacts.html", context={"contacts": contacts_on_page})
+
 
 
 @login_required
@@ -113,8 +114,10 @@ def add_email_address(request, pk):
                     'email_adress_add_url': email_adress_add_url
                     })
 
+
 @login_required
 def upcoming_birthdays(request):
+    per_page = 10 
     today = date.today()
     days_in_future = int(request.GET.get("days", 7))
 
@@ -127,10 +130,25 @@ def upcoming_birthdays(request):
     if not contacts.exists():
         return render(request, "app_contacts/upcoming_birthdays.html", {"message": "No upcoming birthdays."})
 
-    return render(request, "app_contacts/upcoming_birthdays.html", {"contacts": contacts})
+    # Додаємо пагінацію
+     # Кількість записів на сторінці
+    paginator = Paginator(contacts, per_page)
 
+    try:
+        page = paginator.page(request.GET.get("page", 1))
+    except ValueError:
+        page = 1
 
+    try:
+        contacts_page = paginator.page(page)
+    except PageNotAnInteger:
+        contacts_page = paginator.page(1)
+    except EmptyPage:
+        contacts_page = paginator.page(paginator.num_pages)
 
+    return render(request, "app_contacts/upcoming_birthdays.html", {"contacts": contacts_page})
+
+# contacts_page = paginator.page(request.GET.get("page", 1))
 
 @login_required
 def search_contacts(request):
@@ -144,12 +162,23 @@ def search_contacts(request):
             | Q(phone_numbers__phone_number__icontains=query)
             | Q(email_addresses__email__icontains=query)
         ).distinct()
+
+        per_page = 10  
+        paginator = Paginator(contacts, per_page)
+        page_number = request.GET.get("page", 1)
+        page = paginator.get_page(page_number)
+
     except Contact.DoesNotExist:
         contacts = []
+        page = paginator.page(1)
         error_message = "Сontact not found"
 
-    return render(request, "app_contacts/search_contacts.html", {"contacts": contacts, "error_message": error_message})
-
+    return render(request, "app_contacts/search_contacts.html", {
+        "contacts": page.object_list,
+        "error_message": error_message,
+        "paginator": paginator,
+        "page": page,
+    })
 
 
 @login_required

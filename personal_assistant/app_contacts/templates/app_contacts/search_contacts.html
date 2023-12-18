@@ -5,7 +5,7 @@
 <h1>Пошук контактів</h1>
 
 <form action="{% url 'app_contacts:search_contacts' %}" method="get">
-  <input type="text" name="query" placeholder="Введіть им'я, номер телефону або email адресу">
+  <input type="text" name="query" placeholder="Введіть ім'я, номер телефону або email адресу">
   <button type="submit" class="btn btn-primary">Поиск</button>
 </form>
 
@@ -15,6 +15,17 @@
 
 {% if contacts %}
   <h2>Результати пошуку:</h2>
+
+  {% if contacts.paginator.num_pages > 1 %}
+    <ul class="pagination">
+      {% for page in paginator.page_range %}
+        <li {% if page == paginator.current_page %}class="active"{% endif %}>
+          <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
   <ul>
     {% for contact in contacts %}
       <li>
@@ -22,20 +33,31 @@
         {% if contact.phone_numbers %}
           (<span>Номера телефонів:</span>
           {% for phone_number in contact.phone_numbers.all %}
-              {% if not forloop.first %}, {% endif %}{{ phone_number.phone_number }}
-            {% endfor %}
+            {% if not forloop.first %}, {% endif %}{{ phone_number.phone_number }}
+          {% endfor %}
           )
         {% endif %}
         {% if contact.email_addresses %}
           (<span>Email адреси:</span>
           {% for email_address in contact.email_addresses.all %}
-              {% if not forloop.first %}, {% endif %}{{ email_address.email }}
-            {% endfor %}
+            {% if not forloop.first %}, {% endif %}{{ email_address.email }}
+          {% endfor %}
           )
         {% endif %}
       </li>
     {% endfor %}
   </ul>
+
+  {% if contacts.paginator.num_pages > 1 %}
+    <ul class="pagination">
+      {% for page in paginator.page_range %}
+        <li {% if page == paginator.current_page %}class="active"{% endif %}>
+          <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
 {% else %}
   <p>Нічого не знайдено.</p>
 {% endif %}

@@ -14,6 +14,17 @@
 
 {% if contacts %}
   <h1>Найближчі дні народження</h1>
+
+  <!-- {% if paginator.num_pages > 1 %}
+  <ul class="pagination">
+    {% for page in paginator.page_range %}
+      <li {% if page == paginator.current_page %}class="active"{% endif %}>
+        <a href="?days={{ days_in_future }}&page={{ page }}">{{ page }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %} -->
+
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -33,5 +44,28 @@
 {% else %}
   <p>Немає контактів з прийдешніми днями народження</p>
 {% endif %}
+
+<nav>       
+ <ul class="pager">
+  {% if paginator.has_previous %}
+  <li class="previous">
+   <a href="{% url 'app_contacts:upcoming_birthdays_paginate' contacts.next_page_number %}">
+     <span aria-hidden="true">←</span> Previous
+   </a>
+ </li>
+ {% endif %}
+  {% if paginator.has_next %}
+  <li class="next">
+      <a href="{% url 'app_contacts:upcoming_birthdays_paginate' contacts.next_page_number %}">Next
+          <span aria-hidden="true">→</span>
+      </a>
+  </li>
+  {% endif %}       
+</ul>
+</nav>
+</div>
+
+</div>   
+</div>
 
 {% endblock %}

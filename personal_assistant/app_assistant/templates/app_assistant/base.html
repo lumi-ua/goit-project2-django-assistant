@@ -19,6 +19,9 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     {% if user.is_authenticated %}
+
+                    Welcome <b>{{ user.username }}!</b>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'app_contacts:dashboard' %}">Contacts</a>
                     </li>
