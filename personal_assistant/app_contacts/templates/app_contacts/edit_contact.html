@@ -26,6 +26,7 @@
     <label for="phone_numbers">Номера телефонів:</label>
     {% for phone_number in contact.phone_numbers.all %}
       <input type="text" name="phone_numbers" value="{{ phone_number.phone_number }}" class="form-control mb-2">
+      <a href="{% url 'app_contacts:delete_phone' pk=phone_number.pk %}" class="btn btn-danger">Видалити</a>
     {% endfor %}
     <a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Добавити номер телефону</a>
   </div>
@@ -34,6 +35,7 @@
     <label for="email_addresses">Email адреси:</label>
     {% for email_address in contact.email_addresses.all %}
       <input type="email" name="email_addresses" value="{{ email_address.email }}" class="form-control mb-2">
+      <a href="{% url 'app_contacts:delete_email' pk=email_address.pk %}" class="btn btn-danger">Видалити</a>
     {% endfor %}
     <a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Добавити email адресу</a>
   </div>
