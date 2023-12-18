@@ -8,62 +8,67 @@
     <div class="h-screen py-6">
         <nav class="mb-5 border-b-4">
             <ul class="flex items-center justify-center gap-3 mb-10">
-                <li><a class="text-black px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="/app_notes/" role="button"> Go back to the main page </a></li>
+              <a href="/app_notes/" class="btn btn-primary"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
             </ul>
         </nav>
         <style>
-            /* Ваші стилі тут */
-            .note-details {
-                /* стилі для блоку з деталями запису */
-                width: 96px;
-            }
-
-            .note-details h1 {
-                /* стилі для заголовку */
-                font-size: 24px;
-                font-weight: bold;
-                text-transform: uppercase;
-                color: #333;
-            }
 
             .note-details p {
                 /* стилі для тексту опису, дати, статусу та тегів */
-                font-size: 20px;
+                font-size: 18px;
                 color: #666;
                 margin-bottom: 10px;
             }
 
-            .note-details kbd {
-                /* стилі для дати */
-                font-size: 18px;
-                color: #444;
+            .note-details h2 {
+                text-transform: uppercase;
+                font-size: 32px;
             }
 
-            .text-green-600 {
-                /* стилі для тексту статусу "Completed" */
-                color: green;
-                font-size: 20px;
+            .badge-details-completed {
                 font-weight: bold;
+                background-color: green;
+                padding-top: 0.8em;
+
+                padding-bottom: 0.8em;
+                padding-left: 1.2em;
+                padding-right: 1.2em;
             }
 
-            .text-red-600 {
-                /* стилі для тексту статусу "Not implemented" */
-                color: red;
-                font-size: 20px;
+            .badge-details-not-implemented {
+                /*background-color: #8224e3;*/
+                background-color: #A887F9;
                 font-weight: bold;
+                padding-top: 0.8em;
+
+                padding-bottom: 0.8em;
+                padding-left: 1.2em;
+                padding-right: 1.2em;
             }
         </style>
 
+
         <div class="note-details">
-            <h1>{{ note.name }}</h1>
-            <p>Description: <small>{{ note.description }}</small></p>
-            <p>Date: <kbd>{{ note.created.date }}</kbd></p>
+            <h2>{{ note.name }}</h2>
+            <p><strong>Description:</strong> {{ note.description }}</p>
+            <p><strong>Date:</strong> {{ note.created.date }}</p>
+
             {% if note.done %}
-                <p>Status: <ins class="text-green-600">Completed</ins></p>
+                <p><strong>Status:</strong>
+                    <span class="badge rounded-pill badge-details-completed increase-size">Completed</span>
+                </p>
             {% else %}
-                <p>Status: <ins class="text-red-600">Not implemented</ins></p>
+                
+                <p><strong>Status:</strong>
+                    <span class="badge rounded-pill badge-details-not-implemented increase-size">Not implemented</span>
+                </p>
             {% endif %}
-            <p>Tags: <small>{{ note.tag_list }}</small></p>
+            {% if note.tag_list %}
+               <p><strong>Tags:</strong> <small>{{ note.tag_list }}</small></p>
+            {% else %}
+               <p><strong>Tags:</strong> empty</p>
+            {% endif %}
+
         </div>
     </div>
 {% endblock %}
