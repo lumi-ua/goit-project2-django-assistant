@@ -14,5 +14,7 @@ urlpatterns = [
     path('detail/<int:pk>/', views.detail, name='detail'),
     path('add-phone-number/<int:pk>/', views.add_phone_number, name='add_phone_number'),
     path('add-email-address/<int:pk>/', views.add_email_address, name='add_email_address'),
+    path('delete-phone/<int:pk>/', views.delete_phone, name='delete_phone'),
+    path('delete-email/<int:pk>/', views.delete_email, name='delete_email'),
     
 ]
