@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
 from .models import Contact, PhoneNumber, EmailAddress
@@ -20,6 +19,10 @@ def dashboard(request):
 
 @login_required
 def contact(request):
+    contact_form = ContactForm()
+    phone_number_form = PhoneNumberForm()
+    email_address_form = EmailAddressForm()
+
     if request.method == "POST":
         contact_form = ContactForm(request.POST)
         phone_number_form = PhoneNumberForm(request.POST)
@@ -34,18 +37,13 @@ def contact(request):
             phone_number.contact = new_contact
             phone_number.save()
 
-            
-            email_address = email_address_form.save(commit=False)
-            
-            email_address.contact = new_contact
-            email_address.save()
+            email_address_data = email_address_form.cleaned_data
+            if email_address_data.get("email"):
+                email_address = email_address_form.save(commit=False)
+                email_address.contact = new_contact
+                email_address.save()
 
             return redirect(to="app_contacts:dashboard")
-
-    else:
-        contact_form = ContactForm()
-        phone_number_form = PhoneNumberForm()
-        email_address_form = EmailAddressForm()
 
     return render(
         request,
@@ -56,6 +54,7 @@ def contact(request):
             "email_address_form": email_address_form,
         },
     )
+
 
 @login_required
 def contacts(request, page=1):
@@ -190,22 +189,22 @@ def delete_contact(request, pk):
         return render(request, "app_contacts/delete_contact.html", {"contact": contact, "user": request.user})
     
 
-# def delete_email(request, pk):
-#     try:
-#         email = EmailAddress.objects.get(pk=pk)
-#         email.delete()
-#     except ObjectDoesNotExist:
-#         email = None
 
-#     return detail(request, pk)
+def delete_email(request, pk):
+    try:
+        email = EmailAddress.objects.get(pk=pk)
+        email.delete()
+    except ObjectDoesNotExist:
+        email = None
+
+    return detail(request, pk)
 
 
-# def delete_phone(request, pk):
-#     try:
-#         email = PhoneNumber.objects.get(pk=pk)
-#         email.delete()
-#     except ObjectDoesNotExist:
-#         email = None
+def delete_phone(request, pk):
+    try:
+        phone = PhoneNumber.objects.get(pk=pk)
+        phone.delete()
+    except ObjectDoesNotExist:
+        phone = None
 
-#     return detail(request, pk)
-
+    return detail(request, pk)

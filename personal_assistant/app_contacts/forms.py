@@ -28,7 +28,7 @@ class PhoneNumberForm(forms.ModelForm):
             exclude = ["contact"]
 
 class EmailAddressForm(forms.ModelForm):
-        email = EmailField(max_length=100, required=True, widget=forms.EmailInput(attrs={'placeholder': 'example@email.com', 'class': 'form-control'}))
+        email = EmailField(max_length=100, required=False, widget=forms.EmailInput(attrs={'placeholder': 'example@email.com', 'class': 'form-control'}))
 
         class Meta:
             model = EmailAddress

@@ -9,18 +9,26 @@
 <p><strong>Birthday:</strong> {{ contact.birthday }}</p>
 
 <h2>Phone Numbers</h2>
-<ul>
-    {% for phone_number in contact.phone_numbers.all %}
-        <li>{{ phone_number.phone_number }}</li>
-    {% endfor %}
-</ul>
+{% if contact.phone_numbers.exists %}
+    <ul>
+        {% for phone_number in contact.phone_numbers.all %}
+            <li>{{ phone_number.phone_number }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Дані відсутні</p>
+{% endif %}
 
 <h2>Email Addresses</h2>
-<ul>
-    {% for email_address in contact.email_addresses.all %}
-        <li>{{ email_address.email }}</li>
-    {% endfor %}
-</ul>
+{% if contact.email_addresses.exists %}
+    <ul>
+        {% for email_address in contact.email_addresses.all %}
+            <li>{{ email_address.email }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Дані відсутні</p>
+{% endif %}
 
 
 <a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
