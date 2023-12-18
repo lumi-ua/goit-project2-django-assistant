@@ -21,6 +21,11 @@ h1, .h1, h2, .h2, h3, .h3 {
     padding-bottom: 40px;
 }
 
+.text-bg-custom {
+  color: #fff;
+  background-color: #384058;
+}
+
 /* manually */
 .sidebar ul a i{
     margin-right: 16px;
