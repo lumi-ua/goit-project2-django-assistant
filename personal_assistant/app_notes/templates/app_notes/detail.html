@@ -18,15 +18,18 @@
 
         <style>
             .note-details p {
-                /* стилі для тексту опису, дати, статусу та тегів */
+                /* style for tags */
                 font-size: 16px;
                 color: #666;
+                margin-top: 10px;
                 margin-bottom: 10px;
+                padding-left: 1rem
             }
 
             .note-details h2 {
                 text-transform: uppercase;
                 font-size: 32px;
+                margin-bottom: 20px;
             }
 
             .badge-details-completed {
@@ -57,7 +60,7 @@
             </h5>
             <div class="card-body">
                 <div class="note-details">
-                    <h2>{{ note.name }}</h2>
+                    <h2 style="padding-left: 1rem;">{{ note.name }}</h2>
                 </div>
 
                 <!---<p class="card-text"><strong>Description:</strong> {{ note.description }}</p>--->

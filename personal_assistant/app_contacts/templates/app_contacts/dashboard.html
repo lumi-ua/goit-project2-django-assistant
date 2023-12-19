@@ -7,12 +7,21 @@
 
 {% block content %}
 
-<h1>My Contacts</h1>
+<h2>Dashboard: my Contacts</h2>
 
-<a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Сreate New Contact</a>
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-header">
+        Operations
+    </div>
+    <div class="card-body">
+        <a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Сreate New Contact</a>
 
-<a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">My Contacts</a>
+        <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">My Contacts</a>
+        
+        <a href="{% url 'app_contacts:upcoming_birthdays' %}" class="btn btn-primary">Upcoming Birthdays</a>
 
-<a href="{% url 'app_contacts:upcoming_birthdays' %}" class="btn btn-primary">Upcoming Birthdays</a>
+        <a href="{% url 'app_contacts:search_contacts' %}" class="btn btn-primary">Search Contact</a>
+    </div>
+</div>
 
 {% endblock content %}
