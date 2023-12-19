@@ -1,15 +1,7 @@
 from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from bs4 import BeautifulSoup
-import requests
 import environ
-
-# Create your views here.
-# @login_required
-# def main(request):
-#     return render(request, 'index.html')
 env = environ.Env()
 
 def main(request):
@@ -104,7 +96,7 @@ def get_weather(request):
             temperature = weather_data['main']['temp']
             description = weather_data['weather'][0]['description']
             return render(request, 'app_news/weather_form.html',
-                          {'temperature': temperature, 'description': description})
+                          {'city':city, 'temperature': temperature, 'description': description})
         else:
             return render(request, 'app_news/weather_form.html', {'error': 'Failed to fetch weather data'})
 

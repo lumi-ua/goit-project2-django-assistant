@@ -1,12 +1,5 @@
 {% extends "app_assistant/base.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Weather Data</title>
-</head>
-<body>
     <h1>Weather Information</h1>
     <form method="post">
         {% csrf_token %}
@@ -22,10 +15,12 @@
     {% if temperature and description %}
         <table border="1">
             <tr>
+                <th>City</th>
                 <th>Temperature (°C)</th>
                 <th>Description</th>
             </tr>
             <tr>
+                <td>{{ city }}</td>
                 <td>{{ temperature }}</td>
                 <td>{{ description }}</td>
             </tr>
@@ -33,7 +28,5 @@
     {% elif error %}
         <p>{{ error }}</p>
     {% endif %}
-</body>
-</html>
 {% endblock %}
 
