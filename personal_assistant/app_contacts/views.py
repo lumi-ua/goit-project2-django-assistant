@@ -14,7 +14,7 @@ from .models import Contact, PhoneNumber, EmailAddress
 
 @login_required
 def dashboard(request):
-    return render(request, 'app_contacts/dashboard.html')
+    return render(request, 'app_contacts/dashboard.html', {"title": "Dashboard contact operations"})
 
 
 @login_required
@@ -49,10 +49,11 @@ def contact(request):
         request,
         "app_contacts/contact.html",
         {
+            "title": "Creation new contact",
             "contact_form": contact_form,
             "phone_number_form": phone_number_form,
             "email_address_form": email_address_form,
-        },
+        }
     )
 
 
@@ -62,13 +63,23 @@ def contacts(request, page=1):
     contacts = Contact.objects.filter(user=request.user)
     paginator = Paginator(list(contacts), per_page)
     contacts_on_page = paginator.page(page)
-    return render(request, "app_contacts/all_contacts.html", {"contacts": contacts_on_page})
+    return render(request, "app_contacts/all_contacts.html",
+        {
+            "title": "Contacts list",
+            "contacts": contacts_on_page
+        }
+    )
 
 
 @login_required
 def detail(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
-    return render(request, 'app_contacts/detail.html', {'contact': contact})
+    return render(request, 'app_contacts/detail.html',
+        {
+            "title": "Contact details",
+            "contact": contact
+        }
+    )
 
 
 @login_required
@@ -87,10 +98,13 @@ def add_phone_number(request, pk):
         phone_number_form = PhoneNumberForm()
         
 
-    return render(request, 'app_contacts/add_phone_number.html', {
-        'phone_number_form': phone_number_form,
-        'phone_number_add_url': phone_number_add_url,
-    })
+    return render(request, 'app_contacts/add_phone_number.html',
+        {
+            'title': "Adding Phone-number",
+            'phone_number_form': phone_number_form,
+            'phone_number_add_url': phone_number_add_url,
+        }
+    )
 
 
 @login_required
@@ -108,10 +122,12 @@ def add_email_address(request, pk):
         email_address_form = EmailAddressForm()
 
     return render(request, 'app_contacts/add_email_address.html', 
-                  {
-                    'email_address_form': email_address_form,
-                    'email_adress_add_url': email_adress_add_url
-                    })
+        {
+            'title': 'Email address',
+            'email_address_form': email_address_form,
+            'email_adress_add_url': email_adress_add_url
+        }
+    )
 
 @login_required
 def upcoming_birthdays(request):
@@ -125,9 +141,19 @@ def upcoming_birthdays(request):
     )
 
     if not contacts.exists():
-        return render(request, "app_contacts/upcoming_birthdays.html", {"message": "No upcoming birthdays."})
+        return render(request, "app_contacts/upcoming_birthdays.html",
+            {
+                "title": "Upcoming birthdays list",
+                "message": "No upcoming birthdays."
+            }
+        )
 
-    return render(request, "app_contacts/upcoming_birthdays.html", {"contacts": contacts})
+    return render(request, "app_contacts/upcoming_birthdays.html",
+        {
+            "title": "Upcoming birthdays list",
+            "contacts": contacts
+        }
+    )
 
 
 
