@@ -9,11 +9,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
 
         <nav class="mb-5 border-b-4">
-            <ul class="flex items-center justify-center gap-3 mb-10">
+		    <div class="card" style="border-color: white;">
+			<div class="card-body">
                 <a href="/app_notes/note/" class="btn btn-primary">Add Note</a>
                 <a href="/app_notes/tag/" class="btn btn-primary">Add Tag</a>
-            </ul>
+			</div>
+			</div>
         </nav>
+
         <h3 class="font-medium leading-tight text-lg text-gray-300 mb-1" style="text-align: center;">Search:</h3>
 
         <form action="{% url 'app_notes:search_note' %}" method="get" class="flex mb-8">

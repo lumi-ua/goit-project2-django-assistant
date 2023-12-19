@@ -6,13 +6,17 @@
 
 {% block content %}
     <div class="h-screen py-6">
-        <nav class="mb-5 border-b-4">
-            <ul class="flex items-center justify-center gap-3 mb-10">
-              <a href="/app_notes/" class="btn btn-primary"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
-            </ul>
-        </nav>
-        <style>
 
+        <nav class="mb-5 border-b-4">
+            <div class="card"  style="border-color: white;">
+                <div class="card-body">
+                    <a href="/app_notes/" class="btn btn-primary">
+                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
+                </div>
+            </div>
+        </nav>
+
+        <style>
             .note-details p {
                 /* стилі для тексту опису, дати, статусу та тегів */
                 font-size: 18px;
@@ -47,22 +51,37 @@
             }
         </style>
 
+        <div class="card" style="width: 60rem;">
+            <h5 class="card-header">
+            Details
+            </h5>
+            <div class="card-body">
+                <div class="note-details">
+                    <h2 style="margin-top: 20px;">{{ note.name }}</h2>
+                </div>
+
+                <!---<p class="card-text"><strong>Description:</strong> {{ note.description }}</p>--->
+                <!---<p class="card-text"><strong>Date:</strong> {{ note.created.date }}</p>--->
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Description:</strong> {{ note.description }}</li>
+                    <li class="list-group-item"><strong>Date:</strong> {{ note.created.date }}</li>
+                    
+                    <li class="list-group-item">
+                    {% if note.done %}
+                        <strong>Status:</strong>
+                        <span class="badge rounded-pill badge-details-completed increase-size">Completed</span>
+                    {% else %}
+                        <strong>Status:</strong>
+                        <span class="badge rounded-pill badge-details-not-implemented increase-size">Not implemented</span>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
 
         <div class="note-details">
-            <h2>{{ note.name }}</h2>
-            <p><strong>Description:</strong> {{ note.description }}</p>
-            <p><strong>Date:</strong> {{ note.created.date }}</p>
-
-            {% if note.done %}
-                <p><strong>Status:</strong>
-                    <span class="badge rounded-pill badge-details-completed increase-size">Completed</span>
-                </p>
-            {% else %}
-                
-                <p><strong>Status:</strong>
-                    <span class="badge rounded-pill badge-details-not-implemented increase-size">Not implemented</span>
-                </p>
-            {% endif %}
             {% if note.tag_list %}
                <p><strong>Tags:</strong> <small>{{ note.tag_list }}</small></p>
             {% else %}

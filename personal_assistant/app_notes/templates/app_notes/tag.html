@@ -7,10 +7,12 @@
 {% block content %}
 
     <nav class="mb-5 border-b-4">
-        <ul class="flex items-center justify-center gap-3 mb-10">
-          <a href="/app_notes/" class="btn btn-primary"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
-          <a href="/app_notes/note/" class="btn btn-primary">Add Note</a>
-        </ul>
+        <div class="card" style="border-color: white;">
+          <div class="card-body">
+            <a href="/app_notes/" class="btn btn-primary"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
+            <a href="/app_notes/note/" class="btn btn-primary">Add Note</a>
+          </div>
+        </div>
     </nav>
 
     <link rel="stylesheet" type="text/css" href="{% static 'app_notes/css/styles.css' %}">
