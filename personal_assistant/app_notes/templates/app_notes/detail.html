@@ -19,7 +19,7 @@
         <style>
             .note-details p {
                 /* стилі для тексту опису, дати, статусу та тегів */
-                font-size: 18px;
+                font-size: 16px;
                 color: #666;
                 margin-bottom: 10px;
             }
@@ -57,7 +57,7 @@
             </h5>
             <div class="card-body">
                 <div class="note-details">
-                    <h2 style="margin-top: 20px;">{{ note.name }}</h2>
+                    <h2>{{ note.name }}</h2>
                 </div>
 
                 <!---<p class="card-text"><strong>Description:</strong> {{ note.description }}</p>--->
@@ -80,14 +80,12 @@
             </div>
         </div>
 
-
         <div class="note-details">
             {% if note.tag_list %}
                <p><strong>Tags:</strong> <small>{{ note.tag_list }}</small></p>
             {% else %}
                <p><strong>Tags:</strong> empty</p>
             {% endif %}
-
         </div>
     </div>
 {% endblock %}
