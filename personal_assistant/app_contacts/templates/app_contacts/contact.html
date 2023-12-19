@@ -2,24 +2,38 @@
 
 {% block content %}
 
-
-
   <form method="post" action="{% url 'app_contacts:contact' %}">
-    <title>Створення контакту</title>
-</head>
-<body>
+
     <h2>Створення контакту</h2>
     <form action="{% url 'app_contacts:contact' %}" method="post">
         {% csrf_token %}
-        {{ contact_form.as_p }}
-        <h3>Номер телефону</h3>
-        {{ phone_number_form.as_p }}
-        <h3>Email адреса</h3>
-        {{ email_address_form.as_p }}
-        <button type="submit" class="btn btn-primary">Зберегти контакт</button>
-    </form>
-</body>
-</html>
+        <div class="card mb-3">
+            <h5 class="card-header">Details</h5>
+            <div class="card-body">
+            {{ contact_form.as_p }}
+            </div>
+        </div>
 
+        <div class="card mb-3">
+            <h5 class="card-header">
+                Номер телефону
+            </h5>
+            <div class="card-body">
+                {{ phone_number_form.as_p }}
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h5 class="card-header">
+                Email адреса
+            </h5>
+            <div class="card-body">
+                {{ email_address_form.as_p }}
+            </div>
+        </div>
+            
+        <button type="submit" class="btn btn-primary mb-3">Зберегти контакт</button>
+
+    </form>
 
 {% endblock %}
