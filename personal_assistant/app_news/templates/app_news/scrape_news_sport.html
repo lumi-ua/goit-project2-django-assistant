@@ -1,0 +1,12 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+    <h1>Sport News</h1>
+    {% for item in sport_news %}
+        <div>
+            <p>{{ item.time }}</p>
+            <p>{{ item.sport }}</p>
+            <h2>{{ item.news }}</h2>
+        </div>
+    {% endfor %}
+{% endblock %}
