@@ -15,7 +15,7 @@ def logout_view(request):
     if request.method == 'GET':
         username = request.user.username
         logout(request)
-        return render(request, "users/signout.html", {"username": username})
+        return render(request, "users/signout.html", {"title":"Logout user", "username": username})
     redirect(to="app_assistant:main")
 
 
@@ -24,7 +24,7 @@ class RegisterView(View):
     template_name = "users/signup.html"
 
     def get(self, request):
-        return render(request, self.template_name, {"form": self.form_class})
+        return render(request, self.template_name, {"title":"Register new user", "form": self.form_class})
 
     def post(self, request):
         form = self.form_class(request.POST)
