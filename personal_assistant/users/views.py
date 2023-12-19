@@ -24,7 +24,7 @@ class RegisterView(View):
     template_name = "users/signup.html"
 
     def get(self, request):
-        return render(request, self.template_name, {"form": self.form_class})
+        return render(request, self.template_name, {"title":"Register new user", "form": self.form_class})
 
     def post(self, request):
         form = self.form_class(request.POST)
