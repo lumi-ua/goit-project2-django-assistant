@@ -172,9 +172,15 @@ def search_contacts(request):
         ).distinct()
     except Contact.DoesNotExist:
         contacts = []
-        error_message = "Сontact not found"
+        error_message = "Contact not found"
 
-    return render(request, "app_contacts/search_contacts.html", {"contacts": contacts, "error_message": error_message})
+    return render(request, "app_contacts/search_contacts.html",
+        {
+            "title": "Searching contacts",
+            "contacts": contacts,
+            "error_message": error_message
+        }
+    )
 
 
 
@@ -196,6 +202,7 @@ def edit_contact(request, pk):
         form = ContactForm(instance=contact)
 
     return render(request, "app_contacts/edit_contact.html", {
+        "title": "Editing contact",
         "form": form,
         "contact": contact,
         "birthday_str": birthday_str,
@@ -210,10 +217,14 @@ def delete_contact(request, pk):
         contact.delete()
         messages.success(request, "Контакт успешно удален")
         return redirect(to="app_assistant:main")
-
     else:
-        return render(request, "app_contacts/delete_contact.html", {"contact": contact, "user": request.user})
-    
+        return render(request, "app_contacts/delete_contact.html",
+            {
+                "title": "Deleting contact",
+                "contact": contact,
+                "user": request.user
+            }
+        )
 
 
 def delete_email(request, pk):

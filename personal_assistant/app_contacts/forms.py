@@ -8,9 +8,12 @@ from .models import Contact, PhoneNumber, EmailAddress
 
 
 class ContactForm(ModelForm):
-    fullname = CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Name Lastname', "class": "form-control"}))
-    address = CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Сity, Street, House number', "class": "form-control"}))  
-    birthday = DateField(required=False, input_formats=["%d.%m.%Y"], widget=forms.DateInput(attrs={'placeholder': 'DD.MM.YYYY', 'class': 'form-control'}))                        
+    fullname = CharField(max_length=255, 
+        widget=forms.TextInput(attrs={'placeholder': 'Name Lastname', "class": "form-control"}))
+    address = CharField(max_length=255, required=False, 
+        widget=forms.TextInput(attrs={'placeholder': 'City, Street, House number', "class": "form-control"}))
+    birthday = DateField(required=False, input_formats=["%d.%m.%Y"], 
+        widget=forms.DateInput(attrs={'placeholder': 'DD.MM.YYYY', 'class': 'form-control'}))
     class Meta:
         model = Contact
         fields = ["fullname", "address", "birthday"]
