@@ -2,37 +2,67 @@
 
 {% block content %}
 
-<h1>Contact Details</h1>
 
-<p><strong>Full Name:</strong> {{ contact.fullname }}</p>
-<p><strong>Address:</strong> {{ contact.address }}</p>
-<p><strong>Birthday:</strong> {{ contact.birthday }}</p>
+<div class="card"  style="border-color: white;">
+    <div class="card-body">
+        <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Contact list</a>
+    </div>
+</div>
 
-<h2>Phone Numbers</h2>
-{% if contact.phone_numbers.exists %}
-    <ul>
-        {% for phone_number in contact.phone_numbers.all %}
+<br>
+<div class="card">
+    <h5 class="card-header">Contact Details</h5>
+    <div class="card-body">
+      <h5 class="card-title mb-3"><strong>Fullname:</strong> {{ contact.fullname }}</h5>
+
+      <p><strong>Address:</strong> {{ contact.address }}</p>
+      <p><strong>Birthday:</strong> {{ contact.birthday }}</p>
+    </div>
+</div>
+
+<br>
+<div class="card">
+    <h5 class="card-header">Phone Numbers</h5>
+    <div class="card-body">
+
+        {% if contact.phone_numbers.exists %}
+        <ul>
+          {% for phone_number in contact.phone_numbers.all %}
             <li>{{ phone_number.phone_number }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Дані відсутні</p>
-{% endif %}
+          {% endfor %}
+        </ul>
+        {% else %}
+            <p>Дані відсутні</p>
+        {% endif %}
 
-<h2>Email Addresses</h2>
-{% if contact.email_addresses.exists %}
-    <ul>
-        {% for email_address in contact.email_addresses.all %}
-            <li>{{ email_address.email }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Дані відсутні</p>
-{% endif %}
+    </div>
+</div>
 
+<br>
+<div class="card">
+    <h5 class="card-header">Email Addresses</h5>
+    <div class="card-body">
+        {% if contact.email_addresses.exists %}
+        <ul>
+            {% for email_address in contact.email_addresses.all %}
+                <li>{{ email_address.email }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Дані відсутні</p>
+    {% endif %}
+    </div>
+</div>
+<br>
 
-<a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
+<div class="card"  style="border-color: white;">
+    <div class="card-body">
 
-<a href="{% url 'app_contacts:delete_contact' pk=contact.pk %}" class="btn btn-primary">Delete Contact</a>
+        <a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
 
+        <a href="{% url 'app_contacts:delete_contact' pk=contact.pk %}" class="btn btn-primary">Delete Contact</a>
+
+    </div>
+</div>
 {% endblock %}
