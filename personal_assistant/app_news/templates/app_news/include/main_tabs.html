@@ -1,0 +1,27 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+    <h1>Choose what you want to see:</h1>
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Link</th>
+        </tr>
+        <tr>
+            <td>News</td>
+            <td><a href="{% url 'news' %}">Go to News</a></td>
+        </tr>
+        <tr>
+            <td>Sport News</td>
+            <td><a href="{% url 'sport' %}">Go to Sport News</a></td>
+        </tr>
+        <tr>
+            <td>Currency</td>
+            <td><a href="{% url 'currency' %}">Go to Currency</a></td>
+        </tr>
+        <tr>
+            <td>Weather</td>
+            <td><a href="{% url 'weather' %}">Go to Weather</a></td>
+        </tr>
+    </table>
+{% endblock %}

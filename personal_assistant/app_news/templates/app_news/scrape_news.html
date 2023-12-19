@@ -1,0 +1,11 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+    <h1>News</h1>
+    {% for item in news %}
+        <div>
+            <p>{{ item.time }}</p>
+            <h2>{{ item.title }}</h2>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+    <h1>Currency</h1>
+    {% for item in currency %}
+        <div>
+            <p>Bank: {{ item.bank }}</p>
+            <p>Buy: {{ item.buy }}</p>
+            <p>Sale: {{ item.sale }}</p>
+            <p>Date: {{ item.date }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
