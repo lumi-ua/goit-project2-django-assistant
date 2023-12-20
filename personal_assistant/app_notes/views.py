@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Tag, Note
-
+from .forms import NoteForm
 
 @login_required
 def main(request):
@@ -203,3 +203,20 @@ def search_note(request):
         request, "app_notes/search_note.html", {"notes": notes}
     )  # Render the template with the notes as
     # context
+
+@login_required
+def edit_note(request, note_id):
+    try:
+        note = Note.objects.get(pk=note_id, author=request.user)
+        if request.method == "POST":
+            form = NoteForm(request.POST, instance=note)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f"Note '{note.name}' updated successfully")
+                return redirect('app_notes:detail', note_id=note_id)
+        else:
+            form = NoteForm(instance=note)
+        return render(request, 'app_notes/edit_note.html', {'form': form, 'note_id': note_id})
+    except Note.DoesNotExist:
+        messages.error(request, "Note does not exist or you don't have permission to edit it")
+        return redirect('app_notes:detail', note_id=note_id)
