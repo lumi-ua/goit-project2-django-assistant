@@ -1,17 +1,24 @@
 {% extends "app_assistant/base.html" %}
 {% block content %}
-    <h1>Weather Information</h1>
+    <h2>Weather Information</h2>
     <form method="post">
         {% csrf_token %}
-        <label for="city">Enter city:</label>
-        <input type="text" id="city" name="city">
-        <br>
-        <label for="days">Enter number of days (optional):</label>
-        <input type="number" id="days" name="days" min="1" max="10">
-        <br>
-        <input type="submit" value="Get Weather">
+
+        <div class="bd-example" style="display: inline-block">
+            <div class="d-grid col-6 d-md-block gap-2 mx-auto">
+
+              <label for="city">Enter city:</label>
+              <input type="text" id="city" name="city" class="form-control" style="width: 100% !important;">
+              <br>
+              <label for="days">Enter number of days (optional):</label>
+              <input type="number" id="days" name="days" min="1" max="10">
+              <br>
+              <input type="submit" class="btn btn-primary" style="margin-top: 20px;" value="Get Weather">
+            </div>
+        </div>
     </form>
     <br>
+
     {% if temperature and description %}
         <table border="1">
             <tr>

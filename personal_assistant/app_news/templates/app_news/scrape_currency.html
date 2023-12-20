@@ -1,13 +1,19 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-    <h1>Currency</h1>
+    <h2>Currency exchange</h2>
     {% for item in currency %}
-        <div>
-            <p>Bank: {{ item.bank }}</p>
-            <p>Buy: {{ item.buy }}</p>
-            <p>Sale: {{ item.sale }}</p>
-            <p>Date: {{ item.date }}</p>
+        <div class="card">
+            <div class="card-header">Date: 
+            <span class="badge rounded-pill badge-details-activated increase-size">{{ item.date }}</span>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title"><trong>{{item.bank}}</trong></h4>
+                <p></p>
+                <p class="card-text">Buy: {{ item.buy }}</p>
+                <p class="card-text">Sale: {{ item.sale }}</p>
+            </div>
         </div>
+        <br>
     {% endfor %}
 {% endblock %}
