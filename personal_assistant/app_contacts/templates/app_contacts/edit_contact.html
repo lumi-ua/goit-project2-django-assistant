@@ -2,43 +2,68 @@
 
 {% block content %}
 
-<h1>Редагувати контакт контакт - {{ contact.fullname }}</h1>
+<h2>Редагувати контакт: {{ contact.fullname }}</h2>
 
 <form method="post">
   {% csrf_token %}
 
-  <div class="form-group">
-    <label for="fullname">Им'я та фамілія:</label>
-    <input type="text" id="fullname" name="fullname" value="{{ contact.fullname }}" class="form-control" required>
+  <div class="card">
+    <div class="card-header">
+      Details:
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Fullname:
+
+        <input type="text" id="fullname" name="fullname" value="{{ contact.fullname }}" class="form-control" required>
+
+      </li>
+      <li class="list-group-item">Address:
+
+        <input type="text" id="address" name="address" value="{{ contact.address }}" class="form-control">
+
+      </li>
+      <li class="list-group-item">Birthday:
+
+        <input type="date" id="birthday" name="birthday" value="{{ birthday_str.birthday_str }}" class="form-control">
+        
+      </li>
+    </ul>
   </div>
 
-  <div class="form-group">
-    <label for="address">Адреса:</label>
-    <input type="text" id="address" name="address" value="{{ contact.address }}" class="form-control">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Phone numbers list:
+    </div>
+    <div class="card-body">
+      <label for="phone_numbers">Номера телефонів:</label>
+      {% for phone_number in contact.phone_numbers.all %}
+        <input type="text" name="phone_numbers" value="{{ phone_number.phone_number }}" class="form-control mb-2">
+        <a href="{% url 'app_contacts:delete_phone' pk=phone_number.pk %}" class="btn btn-danger">Видалити</a>
+      {% endfor %}
+
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Добавити номер телефону</a>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="birthday">Дата народження:</label>
-    <input type="date" id="birthday" name="birthday" value="{{ birthday_str.birthday_str }}" class="form-control">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Emails list:
+    </div>
+    <div class="card-body">
+      {% for email_address in contact.email_addresses.all %}
+        <input type="email" name="email_addresses" value="{{ email_address.email }}" class="form-control mb-2">
+        <a href="{% url 'app_contacts:delete_email' pk=email_address.pk %}" class="btn btn-danger">Видалити</a>
+      {% endfor %}
+    </div>
+    <div class="card-footer">
+      <a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Добавити email адресу</a>
+    </div>
   </div>
-
-  <div class="form-group">
-    <label for="phone_numbers">Номера телефонів:</label>
-    {% for phone_number in contact.phone_numbers.all %}
-      <input type="text" name="phone_numbers" value="{{ phone_number.phone_number }}" class="form-control mb-2">
-      <a href="{% url 'app_contacts:delete_phone' pk=phone_number.pk %}" class="btn btn-danger">Видалити</a>
-    {% endfor %}
-    <a href="{% url 'app_contacts:add_phone_number' pk=contact.pk %}" class="btn btn-primary">Добавити номер телефону</a>
-  </div>
-
-  <div class="form-group">
-    <label for="email_addresses">Email адреси:</label>
-    {% for email_address in contact.email_addresses.all %}
-      <input type="email" name="email_addresses" value="{{ email_address.email }}" class="form-control mb-2">
-      <a href="{% url 'app_contacts:delete_email' pk=email_address.pk %}" class="btn btn-danger">Видалити</a>
-    {% endfor %}
-    <a href="{% url 'app_contacts:add_email_address' pk=contact.pk %}" class="btn btn-primary">Добавити email адресу</a>
-  </div>
+  <br>
 
   <button type="submit" class="btn btn-primary">Зберегти</button>
 </form>

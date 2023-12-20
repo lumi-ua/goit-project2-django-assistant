@@ -9,12 +9,13 @@
 
 <h2>Dashboard: my Contacts</h2>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="display: inline-block">
     <div class="card-header">
         Operations
     </div>
-    <div class="card-body">
-        <a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Сreate New Contact</a>
+    <div class="card-body" style="display: inline-block">
+        <!---<div class="d-grid gap-2 mx-auto">--->
+        <a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Create New Contact</a>
 
         <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">My Contacts</a>
         
@@ -24,4 +25,14 @@
     </div>
 </div>
 
+<!---
+<div class="bd-example" style="display: inline-block">
+    <div class="d-grid  d-md-block gap-2 mx-auto">
+      <button class="btn btn-primary" type="button">Create New Contact</button>
+      <button class="btn btn-primary" type="button">My Contacts</button>
+      <button class="btn btn-primary" type="button">Upcoming Birthdays</button>
+      <button class="btn btn-primary" type="button">Search Contact</button>
+    </div>
+</div>
+-->
 {% endblock content %}
