@@ -1,11 +1,22 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-    <h1>News</h1>
-    {% for item in news %}
-        <div>
-            <p>{{ item.time }}</p>
-            <h2>{{ item.title }}</h2>
-        </div>
-    {% endfor %}
+
+<h2>Global News</h2>
+
+{% for item in news %}
+<br>
+<div class="card" style="box-shadow: 2px 2px 3px -2px rgba(0, 0, 0, 0.3);">
+    <div class="card-header">
+        <span class="badge rounded-pill badge-details-activated increase-size">{{item.time}}</span>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{item.title}}</p>
+        <footer class="blockquote-footer" style="font-size: 14px;">{{news_url}}</footer>
+      </blockquote>
+    </div>
+</div>
+{% endfor %}
+<br>
 {% endblock %}

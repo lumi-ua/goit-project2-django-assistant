@@ -108,3 +108,14 @@ h1, .h1, h2, .h2, h3, .h3 {
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
   }
+
+.badge-details-activated {
+    background-color: #8224e3;
+    /*background-color: #A887F9;*/
+    font-weight: bold;
+    padding-top: 0.8em;
+
+    padding-bottom: 0.8em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+}

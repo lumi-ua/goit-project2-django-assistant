@@ -5,7 +5,7 @@ import environ
 env = environ.Env()
 
 def main(request):
-    return render(request, 'app_news/index.html')
+    return render(request, 'app_news/index.html', {"title": "News catalog"})
 
 
 @login_required
@@ -27,7 +27,13 @@ def get_news(request):
             result['title'] = title_element.text
             news.append(result)
 
-    return render(request, 'app_news/scrape_news.html', {'news': news})
+    return render(request, 'app_news/scrape_news.html', 
+        {
+            "title": "World news", 
+            "news": news, 
+            "news_url": base_url
+        }
+    )
 
 
 @login_required
@@ -45,7 +51,13 @@ def get_sport_news(request):
         result['news'] = el.find('div', {'class': 'item-title'}).text.strip()
         sport_news.append(result)
         # print(sport_news)
-    return render(request, 'app_news/scrape_news_sport.html', {'sport_news': sport_news})
+    return render(request, 'app_news/scrape_news_sport.html',
+        {
+            "title": "Sports news",
+            "sport_news": sport_news,
+            "news_url": base_url
+        }
+    )
 
 
 @login_required
@@ -69,7 +81,13 @@ def get_currency(request):
         result['date'] = el.find('td', {'class': 'respons-collapsed mfcur-table-refreshtime'}).text.strip()
 
         currency.append(result)
-    return render(request, 'app_news/scrape_currency.html', {'currency': currency})
+    return render(request, 'app_news/scrape_currency.html',
+        {
+            "title": "Currency exchange",
+            "currency": currency,
+            "news_url": base_url
+        }
+    )
 
 
 from django.shortcuts import render
@@ -77,12 +95,12 @@ import requests
 
 @login_required
 def get_weather(request):
+    base_url = 'http://api.openweathermap.org/data/2.5/weather'
     if request.method == 'POST':
         city = request.POST.get('city')
         days = request.POST.get('days') or '1'  # За замовчуванням 1 день, якщо не вказано
 
         api_key = env('YOUR_OPENWEATHERMAP_API_KEY')  # Потрібно використати ваш API ключ OpenWeatherMap
-        base_url = 'http://api.openweathermap.org/data/2.5/weather'
         params = {
             'q': city,
             'appid': api_key,
@@ -96,9 +114,18 @@ def get_weather(request):
             temperature = weather_data['main']['temp']
             description = weather_data['weather'][0]['description']
             return render(request, 'app_news/weather_form.html',
-                          {'city':city, 'temperature': temperature, 'description': description})
+                {
+                    'title': "Wheather information",
+                    'city':city,
+                    'temperature': temperature,
+                    'description': description
+                })
         else:
             return render(request, 'app_news/weather_form.html', {'error': 'Failed to fetch weather data'})
 
-    return render(request, 'app_news/weather_form.html')
+    return render(request, 'app_news/weather_form.html', 
+        {
+            "title": "Wheather information",
+            "news_url": base_url
+        })
 
