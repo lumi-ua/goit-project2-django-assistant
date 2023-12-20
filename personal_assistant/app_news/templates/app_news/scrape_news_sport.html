@@ -1,6 +1,15 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
+<nav class="mb-5 border-b-4">
+    <ul class="flex items-center justify-center gap-3 mb-10">
+        <li><a class="text-gray-900 px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="{% url 'app_news:news' %}" role="button">News</a></li>
+        <li><a class="text-gray-900 px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="{% url 'app_news:currency' %}" role="button">Currency</a></li>
+        <li><a class="text-gray-900 px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="{% url 'app_news:weather' %}" role="button">Weather</a></li>
+        <li><a class="text-gray-900 px-5 py-2 border-2 border-lip rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-400 hover:bg-gradient-to-l hover:from-indigo-600 hover:to-indigo-400 transition" href="{% url 'app_news:form_news' %}" role="button"> Go back to the main page </a></li>
+    </ul>
+</nav>
+
     <h1>Sport News</h1>
     {% for item in sport_news %}
         <div>

@@ -2,9 +2,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tag, Note
+from .forms import NoteForm
 
 
 @login_required
@@ -126,7 +126,6 @@ def note(request):
 def detail(request, note_id):
     """
     Retrieves the note with the given note_id from the database,
-    generates a comma-separated string of tag names associated with the note,
     and renders the detail.html template with the note object as context.
 
     Args:
@@ -137,13 +136,18 @@ def detail(request, note_id):
         HttpResponse: The rendered detail.html template with the note object as context.
     """
     # Retrieve the note with the given note_id from the database
-    note = Note.objects.get(pk=note_id)
+    note = get_object_or_404(Note, pk=note_id)
 
-    # Generate a comma-separated string of tag names associated with the note
-    note.tag_list = ", ".join([str(name) for name in note.tags.all()])
+    if request.method == "POST":
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            return redirect('detail', note_id=note.id)  # Перенаправлення на сторінку деталей після оновлення
+    else:
+        form = NoteForm(instance=note)  # Створення форми для редагування нотатки
 
-    # Render the detail.html template with the note object as context
-    return render(request, "app_notes/detail.html", {"note": note})
+    # Відображення шаблону разом з формою для редагування нотатки
+    return render(request, "app_notes/detail.html", {"note": note, "form": form})
 
 
 @login_required
@@ -203,3 +207,22 @@ def search_note(request):
         request, "app_notes/search_note.html", {"notes": notes}
     )  # Render the template with the notes as
     # context
+
+@login_required
+def edit_note(request, note_id):
+    try:
+        note = Note.objects.get(pk=note_id, author=request.user)
+        if request.method == "POST":
+            form = NoteForm(request.POST, instance=note)
+            if form.is_valid():
+                form.save()
+                messages.success(request, f"Note '{note.name}' updated successfully")
+                return redirect('app_notes:detail', note_id=note_id)
+        else:
+            form = NoteForm(instance=note)
+        return render(request, 'app_notes/edit_note.html', {'form': form, 'note_id': note_id})
+    except Note.DoesNotExist:
+        messages.error(request, "Note does not exist or you don't have permission to edit it")
+        return redirect('app_notes:detail', note_id=note_id)
+
+
