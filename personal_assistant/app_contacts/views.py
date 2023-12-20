@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
+from datetime import date, timedelta
+# from django.db.models import Q
 
 from .forms import ContactForm, PhoneNumberForm, EmailAddressForm
 from .models import Contact, PhoneNumber, EmailAddress
@@ -130,14 +132,33 @@ def add_email_address(request, pk):
     )
 
 @login_required
+# def upcoming_birthdays(request):
+#     today = date.today()
+#     days_in_future = int(request.GET.get("days", 7))
+#
+#     contacts = Contact.objects.filter(
+#         birthday__month__gte=today.month,
+#         birthday__day__lte=today.day + days_in_future,
+#         user=request.user,
+#     )
+#
+#     if not contacts.exists():
+#         return render(request, "app_contacts/upcoming_birthdays.html", {"message": "No upcoming birthdays."})
+#
+#     return render(request, "app_contacts/upcoming_birthdays.html", {"contacts": contacts})
+
+
+
 def upcoming_birthdays(request):
     today = date.today()
     days_in_future = int(request.GET.get("days", 7))
 
+    future_date = today + timedelta(days=days_in_future)
+    print(future_date)
     contacts = Contact.objects.filter(
-        birthday__month__gte=today.month,
-        birthday__day__lte=today.day + days_in_future,
-        user=request.user,
+        Q(birthday__month__gte=today.month, birthday__day__gte=today.day, birthday__year__lte=today.year) |  # Від сьогоднішньої дати до кінця поточного місяця у поточному році
+        Q(birthday__month__gte=future_date.month, birthday__day__lte=future_date.day, birthday__year__lte=future_date.year),  # Від початку майбутнього місяця до майбутньої дати у майбутньому році
+        user=request.user
     )
 
     if not contacts.exists():
@@ -154,7 +175,6 @@ def upcoming_birthdays(request):
             "contacts": contacts
         }
     )
-
 
 
 

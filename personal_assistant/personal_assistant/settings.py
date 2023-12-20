@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'app_contacts',
     "app_notes",
     'app_assistant',
-    'users'
+    'users',
+    'app_news',
 
 
 

@@ -1,0 +1,32 @@
+{% extends "app_assistant/base.html" %}
+{% block content %}
+    <h1>Weather Information</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="city">Enter city:</label>
+        <input type="text" id="city" name="city">
+        <br>
+        <label for="days">Enter number of days (optional):</label>
+        <input type="number" id="days" name="days" min="1" max="10">
+        <br>
+        <input type="submit" value="Get Weather">
+    </form>
+    <br>
+    {% if temperature and description %}
+        <table border="1">
+            <tr>
+                <th>City</th>
+                <th>Temperature (°C)</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>{{ city }}</td>
+                <td>{{ temperature }}</td>
+                <td>{{ description }}</td>
+            </tr>
+        </table>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+{% endblock %}
+
