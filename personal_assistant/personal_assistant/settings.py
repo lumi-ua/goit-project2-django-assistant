@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'app_assistant',
     'users',
     'app_news',
+    'app_download',
 
 
 
