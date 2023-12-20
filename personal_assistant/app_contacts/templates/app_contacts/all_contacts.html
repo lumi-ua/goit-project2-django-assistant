@@ -2,25 +2,50 @@
 
 {% block content %}
 
-<h1>Contact List</h1>
+<nav class="mb-5 border-b-4">
+    <div class="card" style="border-color: white;">
+		<div class="card-body">
+        <a href="{% url 'app_contacts:dashboard' %}" class="btn btn-primary">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Dashboard</a>
+        <a href="{% url 'app_contacts:search_contacts' %}" class="btn btn-primary">Search Contact</a>
+		</div>
+	</div>
+</nav>
+
 
 {% if contacts %}
-    <ul>
-        {% for contact in contacts %}
-            <li>
-                <strong>{{ contact.fullname }}</strong><br>
-                Address: {{ contact.address }}<br>
-                Phone Number: {{ contact.phone_number }}<br>
-                Email: {{ contact.email }}<br>
-                Birthday: {{ contact.birthday }}
-                <a href="{% url 'app_contacts:detail' pk=contact.pk %}" class="btn btn-primary">Detail</a>
-            </li>
-        {% endfor %}
-    </ul>
+    <h1 style="padding-left: 1rem;">Contact List</h1>
 
-    <a href="{% url 'app_contacts:search_contacts' %}" class="btn btn-primary">Search Contact</a>
+    <div class="bd-example">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Fullname</th>
+                <th scope="col">Address</th>
+                <th scope="col">#Details</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                    <tr>
+                        <th scope="row">{{ contact.fullname }}</th>
+                        <td>{{ contact.address }}</td>
+                        <td>
 
-    <div class="pagination">
+                            <h5><a class="badge rounded-pill text-bg-info" 
+                                href="{% url 'app_contacts:detail' pk=contact.pk %}"
+                                style="color: white !important;">Details</a>
+                            </h5>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <div class="bd-example">
         <span class="step-links">
             {% if contacts.has_previous %}
                 <a href="?page=1">&laquo; first</a>
@@ -38,9 +63,8 @@
         </span>
     </div>
 {% else %}
+    <h1>Contact List</h1>
     <p>No contacts available.</p>
 {% endif %}
 
-</body>
-</html>
 {% endblock content %}
