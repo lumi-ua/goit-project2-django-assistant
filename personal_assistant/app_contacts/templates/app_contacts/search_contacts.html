@@ -2,11 +2,19 @@
 
 {% block content %}
 
-<h1>Пошук контактів</h1>
 
 <form action="{% url 'app_contacts:search_contacts' %}" method="get">
-  <input type="text" name="query" placeholder="Введіть им'я, номер телефону або email адресу">
-  <button type="submit" class="btn btn-primary">Поиск</button>
+  <div class="container">
+    <h2 style="text-align: center;">Searching for contacts</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <input type="text" name="query" placeholder="Enter name, phone-number or email" class="form-control">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>
 </form>
 
 {% if error_message %}
@@ -14,28 +22,36 @@
 {% endif %}
 
 {% if contacts %}
-  <h2>Результати пошуку:</h2>
-  <ul>
-    {% for contact in contacts %}
-      <li>
-        <a href="{% url 'app_contacts:detail' pk=contact.pk %}">{{ contact.fullname }}</a>
-        {% if contact.phone_numbers %}
-          (<span>Номера телефонів:</span>
-          {% for phone_number in contact.phone_numbers.all %}
-              {% if not forloop.first %}, {% endif %}{{ phone_number.phone_number }}
+  <h3 style="text-align: center;">Searching results:</h3>
+  <div class="bd-example">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Fullname</th>
+            <th scope="col">Address</th>
+            <th scope="col">#Details</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <th scope="row">{{ contact.fullname }}</th>
+                    <td>{{ contact.address }}</td>
+                    <td>
+
+                        <h5><a class="badge rounded-pill text-bg-info" 
+                            href="{% url 'app_contacts:detail' pk=contact.pk %}"
+                            style="color: white !important;">Details</a>
+                        </h5>
+
+                    </td>
+                </tr>
             {% endfor %}
-          )
-        {% endif %}
-        {% if contact.email_addresses %}
-          (<span>Email адреси:</span>
-          {% for email_address in contact.email_addresses.all %}
-              {% if not forloop.first %}, {% endif %}{{ email_address.email }}
-            {% endfor %}
-          )
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+        </tbody>
+    </table>
+</div>
+<br>
+
 {% else %}
   <p>Нічого не знайдено.</p>
 {% endif %}

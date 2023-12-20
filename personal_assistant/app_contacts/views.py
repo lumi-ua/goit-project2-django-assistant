@@ -165,6 +165,7 @@ def upcoming_birthdays(request):
 def search_contacts(request):
     query = request.GET.get("query", "")
     error_message = ""
+    contacts = None
 
     try:
         user_contacts = Contact.objects.filter(user=request.user)
@@ -174,7 +175,7 @@ def search_contacts(request):
             | Q(email_addresses__email__icontains=query)
         ).distinct()
     except Contact.DoesNotExist:
-        contacts = []
+        contact=[]
         error_message = "Contact not found"
 
     return render(request, "app_contacts/search_contacts.html",
@@ -182,9 +183,7 @@ def search_contacts(request):
             "title": "Searching contacts",
             "contacts": contacts,
             "error_message": error_message
-        }
-    )
-
+        })
 
 
 @login_required
