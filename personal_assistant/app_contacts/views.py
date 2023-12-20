@@ -131,23 +131,6 @@ def add_email_address(request, pk):
         }
     )
 
-@login_required
-# def upcoming_birthdays(request):
-#     today = date.today()
-#     days_in_future = int(request.GET.get("days", 7))
-#
-#     contacts = Contact.objects.filter(
-#         birthday__month__gte=today.month,
-#         birthday__day__lte=today.day + days_in_future,
-#         user=request.user,
-#     )
-#
-#     if not contacts.exists():
-#         return render(request, "app_contacts/upcoming_birthdays.html", {"message": "No upcoming birthdays."})
-#
-#     return render(request, "app_contacts/upcoming_birthdays.html", {"contacts": contacts})
-
-
 
 def upcoming_birthdays(request):
     today = date.today()
@@ -156,8 +139,8 @@ def upcoming_birthdays(request):
     future_date = today + timedelta(days=days_in_future)
     print(future_date)
     contacts = Contact.objects.filter(
-        Q(birthday__month__gte=today.month, birthday__day__gte=today.day, birthday__year__lte=today.year) |  # Від сьогоднішньої дати до кінця поточного місяця у поточному році
-        Q(birthday__month__gte=future_date.month, birthday__day__lte=future_date.day, birthday__year__lte=future_date.year),  # Від початку майбутнього місяця до майбутньої дати у майбутньому році
+        Q(birthday__month__gte=today.month, birthday__day__gte=today.day, birthday__year__lte=today.year) |  
+        Q(birthday__month__gte=future_date.month, birthday__day__lte=future_date.day, birthday__year__lte=future_date.year),  
         user=request.user
     )
 
@@ -207,16 +190,11 @@ def search_contacts(request):
 @login_required
 def edit_contact(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
-    birthday_str = contact.birthday.strftime("%d.%m.%Y") if contact.birthday else ""
-
     if request.method == "POST":
-        form = ContactForm(request.POST, instance=contact, user=request.user)
+        form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
             form.save()
-            messages.success(request, "Контакт успешно отредактирован")
             return redirect(to="app_contacts:detail", pk=pk)
-        else:
-            messages.error(request, "При редактировании контакта возникли ошибки")
 
     else:
         form = ContactForm(instance=contact)
@@ -224,8 +202,7 @@ def edit_contact(request, pk):
     return render(request, "app_contacts/edit_contact.html", {
         "title": "Editing contact",
         "form": form,
-        "contact": contact,
-        "birthday_str": birthday_str,
+        "contact": contact
     })
 
 
@@ -235,8 +212,8 @@ def delete_contact(request, pk):
 
     if request.method == "POST":
         contact.delete()
-        messages.success(request, "Контакт успешно удален")
-        return redirect(to="app_assistant:main")
+        messages.success(request, "Contact successfully deleted")
+        return redirect(to="app_contacts:dashboard")
     else:
         return render(request, "app_contacts/delete_contact.html",
             {
