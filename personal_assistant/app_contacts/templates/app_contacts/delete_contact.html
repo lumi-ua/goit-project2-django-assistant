@@ -5,7 +5,7 @@
   <form method="post" action="{% url 'app_contacts:delete_contact' pk=contact.pk %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-primary">Так, видалити</button>
-    <a href="{% url 'app_assistant:main' %}"class="btn btn-primary">Ні, скасувати</a>
+    <a href="{% url 'app_contacts:detail' pk=contact.pk %}"class="btn btn-primary">Ні, скасувати</a>
   </form>
 {% endblock %}
 
