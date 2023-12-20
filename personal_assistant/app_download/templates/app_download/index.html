@@ -1,12 +1,40 @@
+
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-<div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="pictures/images-download.png" alt="" width="225" height="225">
-    <h1 class="display-5 fw-bold text-body-emphasis">Welcome to downloader</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Download your files. Click the "Upload"</p>
-      
+    <h2>Choose what you want to see:</h2>
+    <div class="bd-example">
+        <table class="table">
+            <tr>
+                <th>Category</th>
+                <th>Link</th>
+            </tr>
+            <tr>
+                <td>News</td>
+                <td><a href="{% url 'app_download:upload' %}">Upload</a></td>
+            </tr>
+            <tr>
+                <td>Sport News</td>
+                <td><a href="{% url 'app_download:files' %}">Files</a></td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td><a href="{% url 'app_download:photo' %}">Photo</a></td>
+            </tr>
+            <tr>
+                <td>Weather</td>
+                <td><a href="{% url 'app_download:music' %}">Music</a></td>
+            </tr>
+
+            <tr>
+                <td>Weather</td>
+                <td><a href="{% url 'app_download:video' %}">Video</a></td>
+            </tr>
+            <tr>
+                <td>Weather</td>
+                <td><a href="{% url 'app_download:other' %}">Other</a></td>
+            </tr>
+        </table>
     </div>
-  </div>
+
 {% endblock %}

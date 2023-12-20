@@ -11,11 +11,13 @@ def main(request):
 
 
 def upload(request):
-    form = FileForm(instance=File(user=request.user))
+    form = FileForm(instance=File())
     if request.method == "POST":
         form = FileForm(request.POST, request.FILES, instance=File())
         if form.is_valid():
-            form.save()
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
             return redirect(to="app_download:files")
     return render(request, 'app_download/upload.html', context={"title": "DownLoad", "form": form})
 
