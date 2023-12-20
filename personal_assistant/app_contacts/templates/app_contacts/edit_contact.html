@@ -24,7 +24,7 @@
       </li>
       <li class="list-group-item">Birthday:
 
-        <input type="date" id="birthday" name="birthday" value="{{ birthday_str.birthday_str }}" class="form-control">
+        <input type="text" id="birthday" name="birthday" value="{{ contact.birthday|date:'d.m.Y' }}" class="form-control">
         
       </li>
     </ul>
