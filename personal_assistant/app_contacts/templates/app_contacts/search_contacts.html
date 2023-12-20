@@ -2,6 +2,15 @@
 
 {% block content %}
 
+<nav class="mb-5 border-b-4">
+  <div class="card" style="border-color: white;">
+      <div class="card-body">
+        <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">
+          <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Contacts
+        </a>
+      </div>
+  </div>
+</nav>
 
 <form action="{% url 'app_contacts:search_contacts' %}" method="get">
   <div class="container">
