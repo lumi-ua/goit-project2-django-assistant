@@ -19,8 +19,7 @@ class ContactForm(ModelForm):
     
 
 class PhoneNumberForm(forms.ModelForm):
-        phone_number = PhoneNumberField(
-            widget=PhoneNumberPrefixWidget(attrs={'placeholder': '+380', 'class': 'form-control'})
+        phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(attrs={'placeholder': '+380', 'class': 'form-control'})
         )
         class Meta:
             model = PhoneNumber
