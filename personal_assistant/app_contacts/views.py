@@ -133,8 +133,10 @@ def add_email_address(request, pk):
 
 
 def upcoming_birthdays(request):
+    max_days = 10
     today = date.today()
     days_in_future = int(request.GET.get("days", 7))
+    if days_in_future > max_days : days_in_future=max_days
 
     future_date = today + timedelta(days=days_in_future)
     print(future_date)
@@ -148,14 +150,18 @@ def upcoming_birthdays(request):
         return render(request, "app_contacts/upcoming_birthdays.html",
             {
                 "title": "Upcoming birthdays list",
-                "message": "No upcoming birthdays."
+                "message": "No upcoming birthdays.",
+                "max_days": str(max_days),
+                "days_in_future": str(days_in_future)
             }
         )
 
     return render(request, "app_contacts/upcoming_birthdays.html",
         {
             "title": "Upcoming birthdays list",
-            "contacts": contacts
+            "contacts": contacts,
+            "max_days": str(max_days),
+            "days_in_future": str(days_in_future)
         }
     )
 

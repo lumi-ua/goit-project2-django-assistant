@@ -20,7 +20,7 @@
     {% endif %}
 
     <label for="days">Днів в майбутньому:</label>
-    <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
+    <input type="number" name="days" id="days" min="1" value="{{ days_in_future }}" max={{max_days}} required>
     <button type="submit" class="btn btn-primary">Фільтр</button>
   </div>
 </form>
