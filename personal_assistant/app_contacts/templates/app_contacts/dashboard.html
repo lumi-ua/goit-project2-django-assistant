@@ -15,9 +15,10 @@
     </div>
     <div class="card-body" style="display: inline-block">
         <!---<div class="d-grid gap-2 mx-auto">--->
-        <a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Create New Contact</a>
 
         <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">My Contacts</a>
+        
+        <a href="{% url 'app_contacts:contact' %}" class="btn btn-primary">Create New Contact</a>
         
         <a href="{% url 'app_contacts:upcoming_birthdays' %}" class="btn btn-primary">Upcoming Birthdays</a>
 

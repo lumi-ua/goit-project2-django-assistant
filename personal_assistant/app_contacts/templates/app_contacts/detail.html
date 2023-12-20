@@ -12,7 +12,7 @@
 
 <br>
 <div class="card">
-    <h5 class="card-header">Contact Details</h5>
+    <div class="card-header">Details:</div>
     <div class="card-body">
       <h5 class="card-title mb-3"><strong>Fullname:</strong> {{ contact.fullname }}</h5>
 
@@ -23,7 +23,7 @@
 
 <br>
 <div class="card">
-    <h5 class="card-header">Phone Numbers</h5>
+    <div class="card-header">Phone Numbers:</div>
     <div class="card-body">
 
         {% if contact.phone_numbers.exists %}
@@ -41,7 +41,7 @@
 
 <br>
 <div class="card">
-    <h5 class="card-header">Email Addresses</h5>
+    <div class="card-header">Email Addresses:</div>
     <div class="card-body">
         {% if contact.email_addresses.exists %}
         <ul>
@@ -54,14 +54,13 @@
     {% endif %}
     </div>
 </div>
-<br>
 
 <div class="card"  style="border-color: white;">
     <div class="card-body">
 
         <a href="{% url 'app_contacts:edit_contact' pk=contact.pk %}" class="btn btn-primary">Edit Contact</a>
 
-        <a href="{% url 'app_contacts:delete_contact' pk=contact.pk %}" class="btn btn-primary">Delete Contact</a>
+        <a href="{% url 'app_contacts:delete_contact' pk=contact.pk %}" class="btn btn-danger">Delete Contact</a>
 
     </div>
 </div>
