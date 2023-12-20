@@ -1,0 +1,18 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+<h1>Your video</h1>
+<div class="row">
+
+{% for v in video %}
+<div class="card" style="width: 18rem;">
+    <img src="/media/{{v.path}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">your video</h5>
+      <p class="card-text">{{v.description}}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

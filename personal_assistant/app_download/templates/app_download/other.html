@@ -1,0 +1,17 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+<h1>Your files</h1>
+<div class="row">
+
+{% for f in files %}
+<div class="card" style="width: 18rem;">
+    <img src="/media/{{f.path}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">your file</h5>
+      <p class="card-text">{{f.description}}</p>
+      </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
