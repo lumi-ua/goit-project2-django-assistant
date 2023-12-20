@@ -8,7 +8,7 @@
 
 <form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
   <label for="days">Днів в майбутньому:</label>
-  <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
+  <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" max="10" required>
   <button type="submit" class="btn btn-primary">Фільтр</button>
 </form>
 
