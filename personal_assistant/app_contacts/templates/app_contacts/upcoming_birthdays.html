@@ -2,18 +2,32 @@
 
 {% block content %}
 
-{% if message %}
-  <p class="alert alert-warning">{{ message }}</p>
-{% endif %}
+
+<nav class="mb-3 border-b-4">
+  <div class="card" style="border-color: white;">
+      <div class="card-body">
+        <a href="{% url 'app_contacts:all_contacts' %}" class="btn btn-primary">
+          <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Contacts
+        </a>
+      </div>
+  </div>
+</nav>
 
 <form action="{% url 'app_contacts:upcoming_birthdays' %}" method="get">
-  <label for="days">Днів в майбутньому:</label>
-  <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
-  <button type="submit" class="btn btn-primary">Фільтр</button>
+  <div class="container">
+    {% if message %}
+    <p class="alert alert-warning">{{ message }}</p>
+    {% endif %}
+
+    <label for="days">Днів в майбутньому:</label>
+    <input type="number" name="days" id="days" value="{{ days_in_future }}" min="1" required>
+    <button type="submit" class="btn btn-primary">Фільтр</button>
+  </div>
 </form>
+<br>
 
 {% if contacts %}
-  <h1>Найближчі дні народження</h1>
+  <h2>Найближчі дні народження</h2>
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -31,7 +45,9 @@
     </tbody>
   </table>
 {% else %}
+<div class="container">
   <p>Немає контактів з прийдешніми днями народження</p>
+</div>
 {% endif %}
 
 {% endblock %}
