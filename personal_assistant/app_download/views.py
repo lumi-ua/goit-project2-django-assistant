@@ -31,21 +31,21 @@ def files(request):
 
 @login_required
 def photo(request):
-    photo = Photo.objects.filter(user=request.user)
+    photo = File.objects.filter(user=request.user) #image
     return render(request, 'app_download/photo.html', context={"title": "DownLoad", "photo": photo})
 
 @login_required
 def music(request):
-    music = Music.objects.filter(user=request.user)
+    music = File.objects.filter(user=request.user) #music
     return render(request, 'app_download/music.html', context={"title": "DownLoad", "music": music})
 
 @login_required
 def video(request):
-    video = Video.objects.filter(user=request.user) 
+    video = File.objects.filter(user=request.user) #video
     return render(request, 'app_download/video.html', context={"title": "DownLoad", "video": video})
 
 @login_required
 def other(request):
-    other = Other.objects.filter(user=request.user)
+    other = File.objects.filter(user=request.user) #others
     return render(request, 'app_download/other.html', context={"title": "DownLoad", "other": other})
 
