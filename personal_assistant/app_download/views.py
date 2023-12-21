@@ -1,4 +1,4 @@
-from django.core.files.storage import FileSystemStorage
+import os
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -118,3 +118,25 @@ def others(request):
             "media": settings.MEDIA_URL
         })
 
+
+@login_required
+def delete_file(request, f_id):
+    file = File.objects.filter(pk=f_id, user=request.user)
+    try:
+        os.unlink(os.path.join(settings.MEDIA_ROOT, str(file.first().path)))
+    except OSError as e:
+        print(e)
+    file.delete()
+    return redirect(to="app_assistant:main")
+
+
+@login_required
+def edit_description(request, f_id):
+    if request.method == "POST":
+        description = request.POST["description"]
+        File.objects.filter(pk=f_id, user=request.user).update(description=description)
+        return redirect(to="app_assistant:main")
+
+    file = File.objects.filter(pk=f_id, user=request.user).first()
+    ctx = {"title": "Personal Assistant", "file": file, "media": settings.MEDIA_URL}
+    return render(request, "app_instagram/edit.html", context=ctx)

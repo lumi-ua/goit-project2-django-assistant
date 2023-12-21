@@ -16,4 +16,7 @@ urlpatterns = [
     path("videos/", views.videos, name='videos'),
     path("archives/", views.archives, name='archives'),
     path("others/", views.others, name='others'),
+
+    path("delete-file/", views.delete_file, name='delete_file'),
+    path("edit-description/", views.edit_description, name='edit_description'),
 ]
