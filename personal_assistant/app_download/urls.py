@@ -9,8 +9,11 @@ urlpatterns = [
     path("", views.main, name='files_browser'),
     path("upload/", views.upload, name='upload'),
     path("files/", views.files, name='files'),
-    path("photo/", views.photo, name='photo'),
-    path("music/", views.music, name='music'),
-    path("video/", views.video, name='video'),
-    path("other/", views.other, name='other'),
+
+    path("images/", views.images, name='images'),
+    path("documents/", views.documents, name='documents'),
+    path("musics/", views.musics, name='musics'),
+    path("videos/", views.videos, name='videos'),
+    path("archives/", views.archives, name='archives'),
+    path("others/", views.others, name='others'),
 ]
