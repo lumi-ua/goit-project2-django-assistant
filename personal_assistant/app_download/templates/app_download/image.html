@@ -1,8 +1,19 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-<h2>Your images</h2>
-<div class="row">
+<h2 style="padding-left: 1rem;">Your images</h2>
+
+<nav>
+  <div class="card" style="border-color: white;">
+      <div class="card-body">
+          <a href="{% url 'app_download:files' %}" class="btn btn-primary">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+              All Files
+          </a>
+      </div>
+  </div>
+</nav>
+
 
 {% for p in image_list %}
 <div class="card" style="width: 18rem;">
@@ -14,5 +25,5 @@
     </div>
   </div>
 {% endfor %}
-</div>
+
 {% endblock %}

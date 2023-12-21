@@ -37,7 +37,7 @@ def getCategory_str(filename):
     for cat, exts in CATEGORIES.items():
         if suffix in exts:
             return cat
-    return "others"
+    return "other"
 ###########################################################
 
 def update_filename(instance, filename):
