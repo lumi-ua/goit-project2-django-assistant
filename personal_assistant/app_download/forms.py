@@ -8,4 +8,5 @@ class FileForm(ModelForm):
     
     class Meta:
         model = File
-        fields = ['description', 'path']
+        fields = ['description', 'path', 'category', 'original_name']
+        exclude = ["user"]

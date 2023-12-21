@@ -49,8 +49,9 @@ def update_filename(instance, filename):
 class File(models.Model):
     description = models.CharField(max_length=150, null=True)
     path = models.FileField(upload_to=update_filename)
-    category = models.CharField('File Category', max_length=40, default='other')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    category = models.CharField('File Category', max_length=40, default='other')
+    original_name = models.CharField(max_length=255, null=True)
 
     def save(self, **kwargs):
         self.category = getCategory_str(self.path.name)
