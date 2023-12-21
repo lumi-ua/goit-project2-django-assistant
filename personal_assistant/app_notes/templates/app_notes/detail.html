@@ -1,95 +1,97 @@
 {% extends "app_assistant/base.html" %}
 
 {% block header %}
-    {% include 'includes/headerNote.html' %}
+{% include 'includes/headerNote.html' %}
 {% endblock %}
 
 {% block content %}
-    <div class="h-screen py-6">
+<div class="h-screen py-6">
 
-        <nav class="mb-5 border-b-4">
-            <div class="card"  style="border-color: white;">
-                <div class="card-body">
-                    <a href="/app_notes/" class="btn btn-primary">
-                        <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
-                </div>
-            </div>
-        </nav>
-
-        <style>
-            .note-details p {
-                /* style for tags */
-                font-size: 16px;
-                color: #666;
-                margin-top: 10px;
-                margin-bottom: 10px;
-                padding-left: 1rem
-            }
-
-            .note-details h2 {
-                text-transform: uppercase;
-                font-size: 32px;
-                margin-bottom: 20px;
-            }
-
-            .badge-details-completed {
-                font-weight: bold;
-                background-color: green;
-                padding-top: 0.8em;
-
-                padding-bottom: 0.8em;
-                padding-left: 1.2em;
-                padding-right: 1.2em;
-            }
-
-            .badge-details-not-implemented {
-                /*background-color: #8224e3;*/
-                background-color: #A887F9;
-                font-weight: bold;
-                padding-top: 0.8em;
-
-                padding-bottom: 0.8em;
-                padding-left: 1.2em;
-                padding-right: 1.2em;
-            }
-        </style>
-
-        <div class="card" style="width: 60rem;">
-            <h5 class="card-header">
-            Details
-            </h5>
+    <nav class="mb-5 border-b-4">
+        <div class="card" style="border-color: white;">
             <div class="card-body">
-                <div class="note-details">
-                    <h2 style="padding-left: 1rem;">{{ note.name }}</h2>
-                </div>
-
-                <!---<p class="card-text"><strong>Description:</strong> {{ note.description }}</p>--->
-                <!---<p class="card-text"><strong>Date:</strong> {{ note.created.date }}</p>--->
-
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Description:</strong> {{ note.description }}</li>
-                    <li class="list-group-item"><strong>Date:</strong> {{ note.created.date }}</li>
-                    
-                    <li class="list-group-item">
-                    {% if note.done %}
-                        <strong>Status:</strong>
-                        <span class="badge rounded-pill badge-details-completed increase-size">Completed</span>
-                    {% else %}
-                        <strong>Status:</strong>
-                        <span class="badge rounded-pill badge-details-not-implemented increase-size">Not implemented</span>
-                    {% endif %}
-                    </li>
-                </ul>
+                <a href="{% url 'app_notes:edit_note' note_id=note.id %}" class="btn btn-primary">
+                    Edit Note</a>
+                <a href="/app_notes/" class="btn btn-primary">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Notes</a>
             </div>
         </div>
+    </nav>
 
-        <div class="note-details">
-            {% if note.tag_list %}
-               <p><strong>Tags:</strong> <small>{{ note.tag_list }}</small></p>
-            {% else %}
-               <p><strong>Tags:</strong> empty</p>
-            {% endif %}
+    <style>
+        .note-details p {
+            /* style for tags */
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-left: 1rem
+        }
+
+        .note-details h2 {
+            text-transform: uppercase;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .badge-details-completed {
+            font-weight: bold;
+            background-color: green;
+            padding-top: 0.8em;
+
+            padding-bottom: 0.8em;
+            padding-left: 1.2em;
+            padding-right: 1.2em;
+        }
+
+        .badge-details-not-implemented {
+            /*background-color: #8224e3;*/
+            background-color: #A887F9;
+            font-weight: bold;
+            padding-top: 0.8em;
+
+            padding-bottom: 0.8em;
+            padding-left: 1.2em;
+            padding-right: 1.2em;
+        }
+    </style>
+
+    <div class="card" style="width: 60rem;">
+        <h5 class="card-header">
+            Details
+        </h5>
+        <div class="card-body">
+            <div class="note-details">
+                <h2 style="padding-left: 1rem;">{{ note.name }}</h2>
+            </div>
+
+            <!---<p class="card-text"><strong>Description:</strong> {{ note.description }}</p>--->
+            <!---<p class="card-text"><strong>Date:</strong> {{ note.created.date }}</p>--->
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Description:</strong> {{ note.description }}</li>
+                <li class="list-group-item"><strong>Date:</strong> {{ note.created.date }}</li>
+
+                <li class="list-group-item">
+                    {% if note.done %}
+                    <strong>Status:</strong>
+                    <span class="badge rounded-pill badge-details-completed increase-size">Completed</span>
+                    {% else %}
+                    <strong>Status:</strong>
+                    <span class="badge rounded-pill badge-details-not-implemented increase-size">Not implemented</span>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
+
+    <div class="note-details">
+        <p><strong>Tags:</strong>
+            {% for tag in note.tags.all %}
+            {{ tag.name }}
+            {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
