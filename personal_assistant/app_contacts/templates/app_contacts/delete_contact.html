@@ -1,11 +1,11 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-  <h2>Ви впевнені, що хочете видалити контакт "{{ contact.fullname }}"?</h2>
+  <h2>Are you sure you want to delete the contact "{{ contact.fullname }}"?</h2>
   <form method="post" action="{% url 'app_contacts:delete_contact' pk=contact.pk %}">
     {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Так, видалити</button>
-    <a href="{% url 'app_contacts:detail' pk=contact.pk %}"class="btn btn-primary">Ні, скасувати</a>
+    <button type="submit" class="btn btn-primary">Yes, delete</button>
+    <a href="{% url 'app_contacts:detail' pk=contact.pk %}"class="btn btn-primary">No, cancel</a>
   </form>
 {% endblock %}
 
