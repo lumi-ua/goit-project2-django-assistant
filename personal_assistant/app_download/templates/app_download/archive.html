@@ -1,10 +1,10 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-<h1>Your all files</h1>
+<h2>Your archives</h2>
 <div class="row">
 
-  {% if files %}
+  {% if archive_list %}
   <div class="bd-example">
       <table class="table">
           <thead>
@@ -15,7 +15,7 @@
           </tr>
           </thead>
           <tbody>
-              {% for f in files %}
+              {% for f in archive_list %}
                   <tr>
                       <th scope="row">
                         <i class="fa-solid fa-file-alt" style="color: #8224e3; margin-right: 5px;"></i>{{ f.description }}
@@ -29,6 +29,5 @@
   </div>
   <br>
 {% endif %}
-
 </div>
 {% endblock %}

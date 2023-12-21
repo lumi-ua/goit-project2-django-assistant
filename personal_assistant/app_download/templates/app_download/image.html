@@ -1,10 +1,10 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-<h1>Your photos</h1>
+<h2>Your images</h2>
 <div class="row">
 
-{% for p in photo %}
+{% for p in image_list %}
 <div class="card" style="width: 18rem;">
     <img src="/media/{{p.path}}" class="card-img-top" alt="...">
     <div class="card-body">
