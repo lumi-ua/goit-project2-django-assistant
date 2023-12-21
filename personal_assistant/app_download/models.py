@@ -3,30 +3,61 @@ from uuid import uuid4
 
 from django.db import models
 from django.contrib.auth.models import User
+from pathlib import Path
 
-EXTENSIONS = {'video':['mp4', 'mov', 'wmv', 'avi', 'avchd', 'flv', 'f4v', 'swf', 'mkv'],
-              'audio':['mp3', 'aac', 'aiff', 'dsd', 'flac', 'mqa', 'ogg', 'wav'],
-              'image':['bmp', 'ecw', 'gif', 'ico', 'ilbm', 'jpeg', 'jpeg2000', 'pcx', 'png', 'psd', 'tga', 'tiff', 'jfif'],
-              'documents':['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'pdf', 'rar', 'zip', 'jar', '7z', 'gz']
-             }
+##########################################################
+img_f = {'.jpeg', '.png', '.jpg', '.svg', ".bmp", ".ico"}
+mov_f = {'.avi', '.mp4', '.mov', '.mkv', ".webm", ".wmv", ".flv"}
+doc_f = {'.doc', '.docx', '.txt', '.pdf', '.xlsx', '.pptx', ".ini", ".cmd", ".ppt", ".xml", ".msg", ".cpp", ".hpp", ".py", ".md"}
+mus_f = {'.mp3', '.ogg', '.wav', '.amr', ".aiff"}
+arch_f = {'.zip', '.tar'}
+
+##########################################################
+CYRILLIC_SYMBOLS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
+TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u",
+               "f", "h", "ts", "ch", "sh", "sch", "", "y", "", "e", "yu", "ya", "je", "i", "ji", "g")
+
+CATEGORIES = { 
+    "image" : img_f, 
+    "video" : mov_f, 
+    "document" : doc_f, 
+    "music" : mus_f,
+    "archives" : arch_f,
+}
+
+###########################################################
+def getCategory(suffix: str):
+    TRANS = {}
+    for c, t in zip(CYRILLIC_SYMBOLS, TRANSLATION):
+       TRANS[ord(c)] = t
+       TRANS[ord(c.lower())] = t.lower()
+    #####################################
+
+    for cat, exts in CATEGORIES.items():
+        if suffix in exts:
+            return cat
+    return "others"
+###########################################################
 
 
 def update_filename(instance, filename):
-    upload_file = 'other'
-    #upload_file_music = 'music'
-    file_ext = filename.split('.')[-1]
-    filename = f"{uuid4().hex}.{file_ext}"
-    for k,v in EXTENSIONS.items():
-        if file_ext in v:
-            return os.path.join(k, filename)
-    return os.path.join(upload_file, filename)
-
+    pathfile = Path(filename)
+    filename = f"{uuid4().hex}.{pathfile.name}"
+    category_id = str(getCategory(pathfile.suffix))
+    return os.path.join(category_id, filename)
 
 class File(models.Model):
+    CATEGORY = (
+        ('video', ('Video')),
+        ('image', ('Image')),
+        ('document', ('Document')),
+        ('music', ('Music')),
+        ('other', ('Other')),
+    )
     description = models.CharField(max_length=150, null=True)
     path = models.FileField(upload_to=update_filename)
+    category = models.CharField('File Category', max_length=40, choices=CATEGORY, default='other')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
 
 
 def update_photoname(instance, photoname):
@@ -69,10 +100,10 @@ class Video(models.Model):
 
 
 def update_othername(instance, othername):
-    upload_other = 'other'
+    category_dir = ""
     file_ext = othername.split('.')[-1]
     othername = f"{uuid4().hex}.{file_ext}"
-    return os.path.join(upload_other, othername)
+    return os.path.join(category_dir, othername)
 
 
 class Other(models.Model):

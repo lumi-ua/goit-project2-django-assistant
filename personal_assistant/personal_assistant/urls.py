@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Adjust the import statement here
 
@@ -27,4 +29,4 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path('app_news/', include('app_news.urls')),
     path('app_download/', include('app_download.urls')),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
