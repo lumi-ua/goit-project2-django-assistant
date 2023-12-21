@@ -1,0 +1,12 @@
+{% extends "app_assistant/base.html" %} 
+
+{% block content %}
+  <h1>Edit Description</h1>
+  <form method="post">
+    {% csrf_token %}  <p>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description">{{ file.description }}</textarea>
+    </p>
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

@@ -139,4 +139,4 @@ def edit_description(request, f_id):
 
     file = File.objects.filter(pk=f_id, user=request.user).first()
     ctx = {"title": "Personal Assistant", "file": file, "media": settings.MEDIA_URL}
-    return render(request, "app_instagram/edit.html", context=ctx)
+    return render(request, "app_download/edit.html", context=ctx)

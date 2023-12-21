@@ -4,7 +4,7 @@
 
   <form method="post" action="{% url 'app_contacts:contact' %}">
 
-    <h2>Створення контакту</h2>
+    <h2>Сreating a contact</h2>
     <form action="{% url 'app_contacts:contact' %}" method="post">
         {% csrf_token %}
         <div class="card mb-3">

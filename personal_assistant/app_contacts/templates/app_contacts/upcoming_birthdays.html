@@ -19,20 +19,20 @@
     <p class="alert alert-warning">{{ message }}</p>
     {% endif %}
 
-    <label for="days">Днів в майбутньому:</label>
+    <label for="days">Days in the future before:</label>
     <input type="number" name="days" id="days" min="1" value="{{ days_in_future }}" max={{max_days}} required>
-    <button type="submit" class="btn btn-primary">Фільтр</button>
+    <button type="submit" class="btn btn-primary">Filter</button>
   </div>
 </form>
 <br>
 
 {% if contacts %}
-  <h2>Найближчі дні народження</h2>
+  <h2>Upcoming birthdays</h2>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Им'я та фамілія</th>
-        <th>Дата народження</th>
+        <th>Fullname</th>
+        <th>Birthday</th>
       </tr>
     </thead>
     <tbody>
@@ -46,7 +46,7 @@
   </table>
 {% else %}
 <div class="container">
-  <p>Немає контактів з прийдешніми днями народження</p>
+  <p>No upcoming birthdays</p>
 </div>
 {% endif %}
 

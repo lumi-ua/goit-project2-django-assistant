@@ -1,0 +1,28 @@
+{% extends "app_assistant/base.html" %}
+{% block content %}
+
+{% if files %}
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for file in files %}
+    <tr>
+      <td>{{ file.description }}</td>
+      <td>{{ file.category }}</td>
+      <td>
+        <a href="{% url 'app_download:remove_file' file.id %}">Remove</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No files found.</p>
+{% endif %}
+{% endblock %}
