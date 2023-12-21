@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .forms import FileForm
-from .models import File, Photo, Music, Video, Other, update_filename
+from .models import File, update_filename
 
 
 # Create your views here.
