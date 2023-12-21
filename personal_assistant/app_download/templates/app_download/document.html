@@ -26,7 +26,11 @@
                             href="{% url 'app_download:edit_description' f_id=f.id %}"
                             style="color: white !important;">Edit</a>
                       </td>
-                      <td>Test</td>
+                      <td>
+                        <a class="badge rounded-pill text-bg-danger" 
+                            href="{% url 'app_download:delete_file' f_id=f.id %}"
+                            style="color: white !important;">Delete</a>
+                      </td>
                   </tr>
               {% endfor %}
           </tbody>

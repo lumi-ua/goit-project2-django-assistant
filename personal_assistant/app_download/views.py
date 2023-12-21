@@ -127,7 +127,8 @@ def delete_file(request, f_id):
     except OSError as e:
         print(e)
     file.delete()
-    return redirect(to="app_assistant:files")
+    # TODO:
+    return redirect(to="app_download:files")
 
 
 @login_required

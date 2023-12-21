@@ -2,7 +2,18 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
+
     <h2>Choose what you want to see:</h2>
+
+    <nav>
+        <div class="card" style="border-color: white;">
+            <div class="card-body">
+            <a href="{% url 'app_download:upload' %}" class="btn btn-primary">Upload File</a>
+            <a href="{% url 'app_download:files' %}" class="btn btn-primary">All Files</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="bd-example">
         <table class="table">
             <tr>
@@ -10,37 +21,29 @@
                 <th>Link</th>
             </tr>
             <tr>
-                <td>News</td>
-                <td><a href="{% url 'app_download:upload' %}">Upload</a></td>
+                <td><i class="fa-solid fa-file-image" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:images' %}" style="font-size:24px;">Images</a></td>
             </tr>
             <tr>
-                <td>Sport News</td>
-                <td><a href="{% url 'app_download:files' %}">All categories files</a></td>
+                <td><i class="fa fa-file-text" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:documents' %}" style="font-size:24px;">Documents</a></td>
             </tr>
             <tr>
-                <td>Currency</td>
-                <td><a href="{% url 'app_download:images' %}">Images</a></td>
-            </tr>
-            <tr>
-                <td>Currency</td>
-                <td><a href="{% url 'app_download:documents' %}">Documents</a></td>
-            </tr>
-            <tr>
-                <td>Weather</td>
-                <td><a href="{% url 'app_download:musics' %}">Musics</a></td>
+                <td><i class="fa-solid fa-file-audio" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:musics' %}" style="font-size:24px;">Musics</a></td>
             </tr>
 
             <tr>
-                <td>Weather</td>
-                <td><a href="{% url 'app_download:videos' %}">Videos</a></td>
+                <td><i class="fa-solid fa-file-video" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:videos' %}" style="font-size:24px;">Videos</a></td>
             </tr>
             <tr>
-                <td>Weather</td>
-                <td><a href="{% url 'app_download:archives' %}">Archives</a></td>
+                <td><i class="fa-solid fa-file-binary" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:archives' %}" style="font-size:24px;">Archives</a></td>
             </tr>
             <tr>
-                <td>Weather</td>
-                <td><a href="{% url 'app_download:others' %}">Others</a></td>
+                <td><i class="fa-solid fa-file-lines" style="font-size:36px; color: #8224e3"></i></td>
+                <td><a href="{% url 'app_download:others' %}" style="font-size:24px;">Others</a></td>
             </tr>
         </table>
     </div>

@@ -11,6 +11,7 @@
           <tr>
               <th scope="col">Description</th>
               <th scope="col">Original filename</th>
+              <th scope="col">Details</th>
               <th scope="col">###</th>
           </tr>
           </thead>
@@ -20,8 +21,17 @@
                       <th scope="row">
                         <i class="fa-solid fa-file-alt" style="color: #8224e3; margin-right: 5px;"></i>{{ f.description }}
                       </th>
-                      <td>{{ f.path }}</td>
-                      <td><p>test</p></td>
+                      <td>{{ f.original_name }}</td>
+                      <td>
+                        <a class="badge rounded-pill text-bg-info" 
+                            href="{% url 'app_download:edit_description' f_id=f.id %}"
+                            style="color: white !important;">Edit</a>
+                      </td>
+                      <td>
+                        <a class="badge rounded-pill text-bg-danger" 
+                            href="{% url 'app_download:delete_file' f_id=f.id %}"
+                            style="color: white !important;">Delete</a>
+                      </td>
                   </tr>
               {% endfor %}
           </tbody>
