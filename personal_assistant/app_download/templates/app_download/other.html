@@ -1,8 +1,18 @@
 {% extends "app_assistant/base.html" %}
 
 {% block content %}
-<h1>Your other types files</h1>
-<div class="row">
+<h2 style="padding-left: 1rem;">Your other types files</h2>
+
+<nav>
+    <div class="card" style="border-color: white;">
+        <div class="card-body">
+            <a href="{% url 'app_download:files' %}" class="btn btn-primary">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                All Files
+            </a>
+        </div>
+    </div>
+</nav>
 
   {% if other_list %}
   <div class="bd-example">
@@ -11,6 +21,7 @@
           <tr>
               <th scope="col">Description</th>
               <th scope="col">Original filename</th>
+              <th scope="col">Details</th>
               <th scope="col">###</th>
           </tr>
           </thead>
@@ -18,10 +29,20 @@
               {% for f in other_list %}
                   <tr>
                       <th scope="row">
-                        <i class="fa-solid fa-file-alt" style="color: #8224e3; margin-right: 5px;"></i>{{ f.description }}
+                        <i class="fa-solid fa-file" style="color: #8224e3; margin-right: 8px; font-size:26px;"></i>
+                        {{ f.description }}
                       </th>
-                      <td>{{ f.path }}</td>
-                      <td><p>test</p></td>
+                      <td><a href="{{media}}{{f.path}}">{{ f.original_name }}</a></td>
+                      <td>
+                        <a class="badge rounded-pill text-bg-info" style="color: white !important;"
+                            href="{% url 'app_download:edit_description' f_id=f.id %}">Edit
+                        </a>
+                      </td>
+                      <td>
+                        <a class="badge rounded-pill text-bg-danger" style="color: white !important;"
+                            href="{% url 'app_download:delete_file' f_id=f.id %}">Delete
+                        </a>
+                      </td>
                   </tr>
               {% endfor %}
           </tbody>
@@ -29,5 +50,5 @@
   </div>
   <br>
 {% endif %}
-</div>
+
 {% endblock %}

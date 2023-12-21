@@ -10,12 +10,12 @@ urlpatterns = [
     path("upload/", views.upload, name='upload'),
     path("files/", views.files, name='files'),
 
-    path("images/", views.images, name='images'),
-    path("documents/", views.documents, name='documents'),
-    path("musics/", views.musics, name='musics'),
-    path("videos/", views.videos, name='videos'),
-    path("archives/", views.archives, name='archives'),
-    path("others/", views.others, name='others'),
+    path("images/", views.images, name='image'),
+    path("documents/", views.documents, name='document'),
+    path("musics/", views.musics, name='music'),
+    path("videos/", views.videos, name='video'),
+    path("archives/", views.archives, name='archive'),
+    path("others/", views.others, name='other'),
 
     path("delete-file/<int:f_id>", views.delete_file, name='delete_file'),
     path("edit-description/<int:f_id>", views.edit_description, name='edit_description'),
