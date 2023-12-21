@@ -2,16 +2,31 @@
 
 {% block content %}
 <h2>Your documents</h2>
-<div class="row">
 
-{% for p in document_list %}
+{% if document_list %}
+  <div class="bd-example">
+      <table class="table">
+          <thead>
+          <tr>
+              <th scope="col">Description</th>
+              <th scope="col">Original filename</th>
+              <th scope="col">###</th>
+          </tr>
+          </thead>
+          <tbody>
+              {% for f in document_list %}
+                  <tr>
+                      <th scope="row">
+                        <i class="fa-solid fa-file-alt" style="color: #8224e3; margin-right: 5px;"></i>{{ f.description }}
+                      </th>
+                      <td>{{ f.path }}</td>
+                      <td><p>test</p></td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  <br>
+{% endif %}
 
-    <div class="card-body">
-      <h5 class="card-title">your documents</h5>
-      <p class="card-text">{{p.description}}</p>
-      <p> /media/{{p.path}}</p>
-    </div>
-
-{% endfor %}
-</div>
 {% endblock %}

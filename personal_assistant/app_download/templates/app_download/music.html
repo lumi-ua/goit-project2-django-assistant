@@ -4,15 +4,31 @@
 <h1>Your music</h1>
 <div class="row">
 
-{% for m in music_list %}
-<div class="card" style="width: 18rem;">
-    <img src="/media/{{m.path}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">your music</h5>
-      <p class="card-text">{{m.description}}</p>
-      
-    </div>
+{% if music_list %}
+  <div class="bd-example">
+      <table class="table">
+          <thead>
+          <tr>
+              <th scope="col">Description</th>
+              <th scope="col">Original filename</th>
+              <th scope="col">###</th>
+          </tr>
+          </thead>
+          <tbody>
+              {% for f in music_list %}
+                  <tr>
+                      <th scope="row">
+                        <i class="fa-solid fa-file-alt" style="color: #8224e3; margin-right: 5px;"></i>{{ f.description }}
+                      </th>
+                      <td>{{ f.path }}</td>
+                      <td><p>test</p></td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
   </div>
-{% endfor %}
+  <br>
+{% endif %}
+
 </div>
 {% endblock %}
