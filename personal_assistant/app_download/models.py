@@ -39,6 +39,19 @@ def getCategory(suffix: str):
     return "others"
 ###########################################################
 
+def getCategory_str(filename):
+    suffix = Path(filename).suffix
+    TRANS = {}
+    for c, t in zip(CYRILLIC_SYMBOLS, TRANSLATION):
+       TRANS[ord(c)] = t
+       TRANS[ord(c.lower())] = t.lower()
+    #####################################
+    for cat, exts in CATEGORIES.items():
+        if suffix in exts:
+            return cat
+    return "others"
+
+
 
 def update_filename(instance, filename):
     pathfile = Path(filename)
@@ -47,17 +60,14 @@ def update_filename(instance, filename):
     return os.path.join(category_id, filename)
 
 class File(models.Model):
-    CATEGORY = (
-        ('video', ('Video')),
-        ('image', ('Image')),
-        ('document', ('Document')),
-        ('music', ('Music')),
-        ('other', ('Other')),
-    )
     description = models.CharField(max_length=150, null=True)
     path = models.FileField(upload_to=update_filename)
-    category = models.CharField('File Category', max_length=40, choices=CATEGORY, default='other')
+    category = models.CharField('File Category', max_length=40, default='other')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    def save(self, **kwargs):
+        self.category = getCategory_str(self.path.name)
+        super().save(**kwargs)
 
 
 def update_photoname(instance, photoname):
