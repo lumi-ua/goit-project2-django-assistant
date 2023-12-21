@@ -127,7 +127,7 @@ def delete_file(request, f_id):
     except OSError as e:
         print(e)
     file.delete()
-    return redirect(to="app_assistant:main")
+    return redirect(to="app_assistant:files")
 
 
 @login_required
@@ -135,8 +135,8 @@ def edit_description(request, f_id):
     if request.method == "POST":
         description = request.POST["description"]
         File.objects.filter(pk=f_id, user=request.user).update(description=description)
-        return redirect(to="app_assistant:main")
+        return redirect(to="app_download:files")
 
     file = File.objects.filter(pk=f_id, user=request.user).first()
     ctx = {"title": "Personal Assistant", "file": file, "media": settings.MEDIA_URL}
-    return render(request, "app_instagram/edit.html", context=ctx)
+    return render(request, "app_download/edit_file.html", context=ctx)

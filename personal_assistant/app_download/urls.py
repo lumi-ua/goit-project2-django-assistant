@@ -17,6 +17,6 @@ urlpatterns = [
     path("archives/", views.archives, name='archives'),
     path("others/", views.others, name='others'),
 
-    path("delete-file/", views.delete_file, name='delete_file'),
-    path("edit-description/", views.edit_description, name='edit_description'),
+    path("delete-file/<int:f_id>", views.delete_file, name='delete_file'),
+    path("edit-description/<int:f_id>", views.edit_description, name='edit_description'),
 ]

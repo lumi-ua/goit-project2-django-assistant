@@ -1,0 +1,29 @@
+{% extends "app_assistant/base.html" %}
+
+{% block content %}
+
+<h2>Edit file description: {{ file.description }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="card">
+        <div class="card-header">
+            File: <strong>{{file.original_name}}</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description:
+                <input type="text" id="description" name="description" value="{{ file.description }}" class="form-control">
+            </li>
+        </ul>
+    </div>
+
+    <div class="card" style="border-color: white;">
+        <div class="card-body">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}
