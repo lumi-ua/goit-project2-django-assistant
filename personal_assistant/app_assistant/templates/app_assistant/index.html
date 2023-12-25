@@ -2,6 +2,26 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
+    <div class="card mt-5" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4" style="padding: 10px 0;">
+            <div class="center-content">
+                <img src="static/app_assistant/cont1.jpg" width="128" 
+                    class="img-fluid rounded" alt="...">
+            </div>
+          </div>
+          <div class="col-md-8" style="padding-left: 0; background-color: #f4f4f4;">
+            <div class="card-body">
+              <h5 class="card-title">Welcome: {{user.username}}</h5>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+{% else %}
 <div class="px-4 my-5 text-center" style="padding-top: 0; margin-top: 0;">
     <h1 class="display-5 fw-bold" style="font-size: 36px; margin-top: -20px;">Personal Assistant</h1>
     <h3 class="display-5 fw-bold" style="font-size: 26px; margin-top: 10px;" >Персональний помічник</h2>
@@ -11,6 +31,7 @@
     <img class="d-block mx-auto mb-4" style="border-radius: 0.5rem;" src="static/app_assistant/cont1.jpg" 
         alt="" width="750" height="440">
 </div>
+{% endif %}
 
 {% endblock %}
 

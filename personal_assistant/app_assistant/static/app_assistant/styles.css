@@ -22,14 +22,22 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 .text-bg-custom {
-  color: #fff;
-  background-color: #384058;
+    background-color: #384058;
 }
 
 /* manually */
 .sidebar ul a i{
     margin-right: 16px;
 }
+
+.sidebar .nav-pills li:hover {
+    background-color: #485070;
+}
+
+.sidebar ul li a:hover {
+    color: #ccc !important;
+}
+
 
 /* bootstrap */
 .bd-placeholder-img {
@@ -119,3 +127,27 @@ h1, .h1, h2, .h2, h3, .h3 {
     padding-left: 1.2em;
     padding-right: 1.2em;
 }
+
+/**/
+.center-content img {
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+.custom-presence-indicator {
+    /* position the indicator. AUI Avatars are a relative container. */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    
+    /* size the indicator appropriately. content should not appear outside the indicator. */
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    
+    /* style the indicator. */
+    color: #00875A;
+    border: 3px solid #fff;
+    border-radius: 100%;
+    fill: #00875A;
+  }
