@@ -1,5 +1,9 @@
 ## goit-project2-django-assistant
 
+<div align="left">
+  <img src="/imgs/Titul.png">
+</div>
+
 1. [sample-django-file-manager](https://github.com/diixo/sample-django-file-manager) -> [app-generator](https://github.com/diixo/django-corporate-dashboard)
 2. [django-Personal-Assistant-WEB](https://github.com/diixo/Personal-Assistant-WEB)
 3. [django-phonebook](https://github.com/diixo/django-phonebook)
