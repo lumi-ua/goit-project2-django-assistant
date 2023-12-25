@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>SignUp</h1>
+<div class="bd-example">
 <form method="post">
     {% csrf_token %}
     <div class="form-row">
@@ -48,4 +49,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Sing Up</button>
 </form>
+</div>
 {% endblock %}
